@@ -5,6 +5,8 @@ import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useQuery } from "react-query";
+import { getPosts } from "../utils/api";
 
 import post1 from "./blog-post.1.md";
 import post2 from "./blog-post.2.md";
@@ -86,6 +88,8 @@ const sidebar = {
 const theme = createTheme();
 
 export default function Blog() {
+  const { data } = useQuery("posts", getPosts);
+  console.log(data);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
