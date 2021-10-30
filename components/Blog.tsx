@@ -5,10 +5,10 @@ import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import * as React from "react";
-import post1 from "./blog-post.1.mdx";
-import post2 from "./blog-post.2.mdx";
-import post3 from "./blog-post.3.mdx";
+
+import post1 from "./blog-post.1.md";
+import post2 from "./blog-post.2.md";
+import post3 from "./blog-post.3.md";
 import FeaturedPost from "./FeaturedPost";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -33,7 +33,7 @@ const mainFeaturedPost = {
   title: "Title of a longer featured blog post",
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: "https://source.unsplash.com/random",
+  image: "https://source.unsplash.com/random?water",
   imageText: "main image description",
   linkText: "Continue reading…",
 };
@@ -44,7 +44,7 @@ const featuredPosts = [
     date: "Nov 12",
     description:
       "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random",
+    image: "https://source.unsplash.com/random?nature",
     imageLabel: "Image Text",
   },
   {
@@ -52,7 +52,7 @@ const featuredPosts = [
     date: "Nov 11",
     description:
       "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random",
+    image: "https://source.unsplash.com/random?animal",
     imageLabel: "Image Text",
   },
 ];

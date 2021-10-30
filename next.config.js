@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx?$/,
-});
-
-module.exports = withMDX({
+module.exports = {
   reactStrictMode: true,
-});
+  images: {
+    domains: ["source.unsplash.com"],
+  },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.module.rules.push({
+      test: /\.md$/i,
+      loader: "raw-loader",
+    });
+    // Important: return the modified config
+    return config;
+  },
+};

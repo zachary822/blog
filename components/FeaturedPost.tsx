@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Image from "next/image";
 
 interface FeaturedPostProps {
   post: {
@@ -22,7 +22,7 @@ export default function FeaturedPost(props: FeaturedPostProps) {
   return (
     <Grid item xs={12} md={6}>
       <CardActionArea component="a" href="#">
-        <Card sx={{ display: 'flex' }}>
+        <Card sx={{ display: "flex" }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">
               {post.title}
@@ -37,12 +37,18 @@ export default function FeaturedPost(props: FeaturedPostProps) {
               Continue reading...
             </Typography>
           </CardContent>
-          <CardMedia
-            component="img"
-            sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
-            image={post.image}
-            alt={post.imageLabel}
-          />
+          <CardMedia sx={{ width: 160, display: { xs: "none", sm: "block" } }}>
+            <div
+              style={{ position: "relative", width: "100%", height: "100%" }}
+            >
+              <Image
+                src={post.image}
+                alt={post.imageLabel}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+          </CardMedia>
         </Card>
       </CardActionArea>
     </Grid>
