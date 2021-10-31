@@ -47,7 +47,7 @@ export default function Blog() {
   return (
     <>
       <Container maxWidth="lg">
-        <Header title="The ThoughtBank Blog" />
+        <Header title="ThoughtBank" />
         <main>
           <MainFeaturedPost post={posts[0] || mainFeaturedPost} />
           <Grid container spacing={4}>
