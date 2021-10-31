@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import merge from "lodash/merge";
 import Image from "next/image";
+import NextLink from "next/link";
 import { Post } from "../utils/models";
 import Markdown, { options } from "./Markdown";
 
@@ -81,9 +82,9 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
             >
               <Markdown options={customOptions}>{post.body}</Markdown>
             </Typography>
-            <Link variant="subtitle1" href="#">
-              Continue Reading...
-            </Link>
+            <NextLink href={`/posts/${post._id}`} passHref>
+              <Link variant="subtitle1">Continue Reading...</Link>
+            </NextLink>
           </Box>
         </Grid>
       </Grid>

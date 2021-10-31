@@ -1,31 +1,29 @@
+import GitHubIcon from "@mui/icons-material/GitHub";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
-import type { ElementType } from "react";
-import type { Archive } from "../utils/models";
+import { useQuery } from "react-query";
+import { getSummary } from "../utils/api";
 
-interface SidebarProps {
-  archives: Archive[];
-  description: string;
-  social: ReadonlyArray<{
-    icon: ElementType;
-    name: string;
-    url: string;
-  }>;
-  title: string;
-}
+const sidebar = {
+  description: "Test blog that uses MongoDB document with markdown content.",
+  social: [
+    { name: "GitHub", icon: GitHubIcon, url: "https://github.com/zachary822" },
+  ],
+};
 
-export default function Sidebar(props: SidebarProps) {
-  const { archives, description, social, title } = props;
+export default function Sidebar() {
+  const { description, social } = sidebar;
+  const { data: archives = [] } = useQuery("summary", getSummary);
 
   return (
     <Grid item xs={12} md={4}>
       <Paper elevation={0} sx={{ p: 2, bgcolor: "grey.200" }}>
         <Typography variant="h6" gutterBottom>
-          {title}
+          About
         </Typography>
         <Typography>{description}</Typography>
       </Paper>
@@ -33,12 +31,12 @@ export default function Sidebar(props: SidebarProps) {
         Archives
       </Typography>
       {archives.map((archive) => {
-        const d = new Date(archive._id.year, archive._id.month, 1);
+        const d = new Date(archive._id.year, archive._id.month - 1, 1);
 
         return (
           <NextLink
             key={`${archive._id.year}_${archive._id.month}`}
-            href={"#"}
+            href={`/posts/${archive._id.year}/${archive._id.month}`}
             passHref
           >
             <Link display="block" variant="body1">

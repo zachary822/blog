@@ -1,4 +1,5 @@
 export type Post = {
+  _id: string;
   created: string;
   body: string;
   image?: string;
