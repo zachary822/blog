@@ -1,16 +1,12 @@
-import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useQuery } from "react-query";
 import { getPosts } from "../utils/api";
+import { Post } from "../utils/models";
 
-import post1 from "./blog-post.1.md";
-import post2 from "./blog-post.2.md";
-import post3 from "./blog-post.3.md";
 import FeaturedPost from "./FeaturedPost";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -18,48 +14,12 @@ import Main from "./Main";
 import MainFeaturedPost from "./MainFeaturedPost";
 import Sidebar from "./Sidebar";
 
-const sections = [
-  { title: "Technology", url: "#" },
-  { title: "Design", url: "#" },
-  { title: "Culture", url: "#" },
-  { title: "Business", url: "#" },
-  { title: "Politics", url: "#" },
-  { title: "Opinion", url: "#" },
-  { title: "Science", url: "#" },
-  { title: "Health", url: "#" },
-  { title: "Style", url: "#" },
-  { title: "Travel", url: "#" },
-];
-
 const mainFeaturedPost = {
   title: "Title of a longer featured blog post",
-  description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+  body: "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
   image: "https://source.unsplash.com/random?water",
-  imageText: "main image description",
-  linkText: "Continue reading…",
+  imageLabel: "main image description",
 };
-
-const featuredPosts = [
-  {
-    title: "Featured post",
-    date: "Nov 12",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random?nature",
-    imageLabel: "Image Text",
-  },
-  {
-    title: "Post title",
-    date: "Nov 11",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random?animal",
-    imageLabel: "Image Text",
-  },
-];
-
-const posts = [post1, post2, post3];
 
 const sidebar = {
   title: "About",
@@ -79,31 +39,29 @@ const sidebar = {
     { title: "April 1999", url: "#" },
   ],
   social: [
-    { name: "GitHub", icon: GitHubIcon },
-    { name: "Twitter", icon: TwitterIcon },
-    { name: "Facebook", icon: FacebookIcon },
+    { name: "GitHub", icon: GitHubIcon, url: "https://github.com/zachary822" },
   ],
 };
 
 const theme = createTheme();
 
 export default function Blog() {
-  const { data } = useQuery("posts", getPosts);
-  console.log(data);
+  const { data: posts = [] } = useQuery("posts", getPosts);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="Blog" sections={sections} />
+        <Header title="Blog" />
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
+          <MainFeaturedPost post={posts[0] || mainFeaturedPost} />
           <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
+            {posts.slice(1, 3).map((post: Post) => (
               <FeaturedPost key={post.title} post={post} />
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title="From the firehose" posts={posts} />
+            <Main title="From the firehose" posts={posts.slice(3)} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
@@ -113,10 +71,7 @@ export default function Blog() {
           </Grid>
         </main>
       </Container>
-      <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
-      />
+      <Footer />
     </ThemeProvider>
   );
 }

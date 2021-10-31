@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../utils/mongodb";
 
-type Data = {
-  posts: any;
-};
+type Data = any[];
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,9 +16,10 @@ export default async function handler(
     .db("blog")
     .collection("posts")
     .find()
+    .sort({ created: -1 })
     .limit(parseInt(limit))
     .skip(parseInt(offset))
     .toArray();
 
-  res.status(200).json({ posts });
+  res.status(200).json(posts);
 }

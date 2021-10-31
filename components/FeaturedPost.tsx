@@ -5,15 +5,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import { Post } from "../utils/models";
 
 interface FeaturedPostProps {
-  post: {
-    date: string;
-    description: string;
-    image: string;
-    imageLabel: string;
-    title: string;
-  };
+  post: Post;
 }
 
 export default function FeaturedPost(props: FeaturedPostProps) {
@@ -28,10 +23,10 @@ export default function FeaturedPost(props: FeaturedPostProps) {
               {post.title}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
-              {post.date}
+              {post.created}
             </Typography>
             <Typography variant="subtitle1" paragraph>
-              {post.description}
+              {post.body.slice(0, 100)}
             </Typography>
             <Typography variant="subtitle1" color="primary">
               Continue reading...
@@ -42,7 +37,7 @@ export default function FeaturedPost(props: FeaturedPostProps) {
               style={{ position: "relative", width: "100%", height: "100%" }}
             >
               <Image
-                src={post.image}
+                src={post.image || "https://source.unsplash.com/random?nature"}
                 alt={post.imageLabel}
                 layout="fill"
                 objectFit="cover"

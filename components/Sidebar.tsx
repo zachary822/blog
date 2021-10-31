@@ -3,6 +3,7 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import NextLink from "next/link";
 import type { ElementType } from "react";
 
 interface SidebarProps {
@@ -14,6 +15,7 @@ interface SidebarProps {
   social: ReadonlyArray<{
     icon: ElementType;
     name: string;
+    url: string;
   }>;
   title: string;
 }
@@ -33,31 +35,29 @@ export default function Sidebar(props: SidebarProps) {
         Archives
       </Typography>
       {archives.map((archive) => (
-        <Link
-          display="block"
-          variant="body1"
-          href={archive.url}
-          key={archive.title}
-        >
-          {archive.title}
-        </Link>
+        <NextLink key={archive.title} href={archive.url} passHref>
+          <Link display="block" variant="body1">
+            {archive.title}
+          </Link>
+        </NextLink>
       ))}
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
         Social
       </Typography>
       {social.map((network) => (
-        <Link
-          display="block"
-          variant="body1"
-          href="#"
-          key={network.name}
-          sx={{ mb: 0.5 }}
-        >
-          <Stack direction="row" spacing={1} alignItems="center">
-            <network.icon />
-            <span>{network.name}</span>
-          </Stack>
-        </Link>
+        <NextLink key={network.name} href={network.url} passHref>
+          <Link
+            display="block"
+            variant="body1"
+            target={"_blank"}
+            sx={{ mb: 0.5 }}
+          >
+            <Stack direction="row" spacing={1} alignItems="center">
+              <network.icon />
+              <span>{network.name}</span>
+            </Stack>
+          </Link>
+        </NextLink>
       ))}
     </Grid>
   );

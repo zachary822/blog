@@ -4,15 +4,12 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import { Post } from "../utils/models";
+
+const DEFAULT_IMAGE = "https://source.unsplash.com/random?water";
 
 interface MainFeaturedPostProps {
-  post: {
-    description: string;
-    image: string;
-    imageText: string;
-    linkText: string;
-    title: string;
-  };
+  post: Post;
 }
 
 export default function MainFeaturedPost(props: MainFeaturedPostProps) {
@@ -28,11 +25,17 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundImage: `url(${post.image})`,
+        backgroundImage: `url(${post.image || DEFAULT_IMAGE})`,
       }}
     >
       {/* Increase the priority of the hero background image */}
-      {<Image layout="fill" src={post.image} alt={post.imageText} />}
+      {
+        <Image
+          layout="fill"
+          src={post.image || DEFAULT_IMAGE}
+          alt={post.imageLabel}
+        />
+      }
       <Box
         sx={{
           position: "absolute",
@@ -61,10 +64,10 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
               {post.title}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
+              {post.body.slice(0, 100)}
             </Typography>
             <Link variant="subtitle1" href="#">
-              {post.linkText}
+              Continue Reading...
             </Link>
           </Box>
         </Grid>
