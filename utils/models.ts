@@ -5,3 +5,11 @@ export type Post = {
   imageLabel?: string;
   title: string;
 };
+
+export type Archive = {
+  _id: {
+    year: number;
+    month: number;
+  };
+  count: number;
+};

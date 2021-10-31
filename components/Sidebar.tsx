@@ -5,12 +5,10 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
 import type { ElementType } from "react";
+import type { Archive } from "../utils/models";
 
 interface SidebarProps {
-  archives: ReadonlyArray<{
-    url: string;
-    title: string;
-  }>;
+  archives: Archive[];
   description: string;
   social: ReadonlyArray<{
     icon: ElementType;
@@ -34,13 +32,21 @@ export default function Sidebar(props: SidebarProps) {
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
         Archives
       </Typography>
-      {archives.map((archive) => (
-        <NextLink key={archive.title} href={archive.url} passHref>
-          <Link display="block" variant="body1">
-            {archive.title}
-          </Link>
-        </NextLink>
-      ))}
+      {archives.map((archive) => {
+        const d = new Date(archive._id.year, archive._id.month, 1);
+
+        return (
+          <NextLink
+            key={`${archive._id.year}_${archive._id.month}`}
+            href={"#"}
+            passHref
+          >
+            <Link display="block" variant="body1">
+              {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}
+            </Link>
+          </NextLink>
+        );
+      })}
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
         Social
       </Typography>

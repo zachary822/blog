@@ -1,10 +1,8 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useQuery } from "react-query";
-import { getPosts } from "../utils/api";
+import { getPosts, getSummary } from "../utils/api";
 import { Post } from "../utils/models";
 
 import FeaturedPost from "./FeaturedPost";
@@ -43,14 +41,12 @@ const sidebar = {
   ],
 };
 
-const theme = createTheme();
-
 export default function Blog() {
   const { data: posts = [] } = useQuery("posts", getPosts);
+  const { data: archives = [] } = useQuery("summary", getSummary);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <>
       <Container maxWidth="lg">
         <Header title="Blog" />
         <main>
@@ -65,13 +61,13 @@ export default function Blog() {
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
-              archives={sidebar.archives}
+              archives={archives}
               social={sidebar.social}
             />
           </Grid>
         </main>
       </Container>
       <Footer />
-    </ThemeProvider>
+    </>
   );
 }

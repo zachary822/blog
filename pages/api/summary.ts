@@ -11,14 +11,22 @@ export default async function handler(
   offset = Array.isArray(offset) ? offset[0] : offset;
 
   const client = await clientPromise;
-  const posts = await client
+  const counts = await client
     .db("blog")
     .collection("posts")
-    .find()
-    .sort({ created: -1 })
-    .limit(parseInt(limit))
-    .skip(parseInt(offset))
+    .aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: "$created" },
+            month: { $month: "$created" },
+          },
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { "_id.year": -1, "_id.month": -1 } },
+    ])
     .toArray();
 
-  res.status(200).json(posts);
+  res.status(200).json(counts);
 }
