@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { Post } from "../utils/models";
+import Markdown from "./Markdown";
 
 interface FeaturedPostProps {
   post: Post;
@@ -25,8 +26,16 @@ export default function FeaturedPost(props: FeaturedPostProps) {
             <Typography variant="subtitle1" color="text.secondary">
               {post.created}
             </Typography>
-            <Typography variant="subtitle1" paragraph>
-              {post.body.slice(0, 100)}
+            <Typography
+              variant="subtitle1"
+              sx={{
+                height: "2.8rem",
+                overflow: "hidden",
+                maskImage:
+                  "linear-gradient(rgba(0, 0, 0, 1.0) 1.4rem, transparent)",
+              }}
+            >
+              <Markdown>{post.body}</Markdown>
             </Typography>
             <Typography variant="subtitle1" color="primary">
               Continue reading...

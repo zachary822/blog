@@ -3,14 +3,20 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import merge from "lodash/merge";
 import Image from "next/image";
 import { Post } from "../utils/models";
+import Markdown, { options } from "./Markdown";
 
 const DEFAULT_IMAGE = "https://source.unsplash.com/random?water";
 
 interface MainFeaturedPostProps {
   post: Post;
 }
+
+const customOptions = merge({}, options, {
+  overrides: { p: { props: { variant: "h5" } } },
+});
 
 export default function MainFeaturedPost(props: MainFeaturedPostProps) {
   const { post } = props;
@@ -63,8 +69,17 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
             >
               {post.title}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {post.body.slice(0, 100)}
+            <Typography
+              variant="h5"
+              color="inherit"
+              sx={{
+                maxHeight: "5.8rem",
+                overflow: "hidden",
+                maskImage:
+                  "linear-gradient(rgba(0, 0, 0, 1.0) 3rem, transparent)",
+              }}
+            >
+              <Markdown options={customOptions}>{post.body}</Markdown>
             </Typography>
             <Link variant="subtitle1" href="#">
               Continue Reading...

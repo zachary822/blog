@@ -27,9 +27,15 @@ export default function Main(props: MainProps) {
       </Typography>
       <Divider />
       {posts.map((post) => (
-        <Markdown className="markdown" key={post.substring(0, 40)}>
-          {post}
-        </Markdown>
+        <div key={post._id} className="markdown">
+          <Typography gutterBottom variant="h4" component="h1">
+            {post.title}
+          </Typography>
+          <Typography gutterBottom variant="caption" paragraph>
+            {post.created}
+          </Typography>
+          <Markdown>{post.body}</Markdown>
+        </div>
       ))}
     </Grid>
   );

@@ -21,8 +21,7 @@ const mainFeaturedPost = {
 
 const sidebar = {
   title: "About",
-  description:
-    "Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.",
+  description: "Test blog that uses MongoDB document with markdown content.",
   archives: [
     { title: "March 2020", url: "#" },
     { title: "February 2020", url: "#" },
@@ -48,7 +47,7 @@ export default function Blog() {
   return (
     <>
       <Container maxWidth="lg">
-        <Header title="Blog" />
+        <Header title="The ThoughtBank Blog" />
         <main>
           <MainFeaturedPost post={posts[0] || mainFeaturedPost} />
           <Grid container spacing={4}>

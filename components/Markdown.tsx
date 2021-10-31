@@ -7,7 +7,7 @@ function MarkdownListItem(props: any) {
   return <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />;
 }
 
-const options = {
+export const options = {
   overrides: {
     h1: {
       component: Typography,
