@@ -42,7 +42,8 @@ export default function Sidebar(props: SidebarProps) {
             passHref
           >
             <Link display="block" variant="body1">
-              {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}
+              {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}{" "}
+              ({archive.count})
             </Link>
           </NextLink>
         );
