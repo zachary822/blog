@@ -1,9 +1,16 @@
 import { Archive, Post } from "./models";
 
-export const getPosts = (): Promise<Post[]> =>
-  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/posts`).then((res) =>
-    res.json()
-  );
+const handleResponse = (res: Response) => {
+  if (!res.ok) {
+    throw new Error(`${res.statusText}`);
+  }
+  return res.json();
+};
+
+export const getPosts = (offset = 0, limit = 10): Promise<Post[]> =>
+  fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/posts?offset=${offset}&limit=${limit}`
+  ).then(handleResponse);
 
 export const getPostsByMonth = (
   year: number | string,
@@ -11,14 +18,14 @@ export const getPostsByMonth = (
 ): Promise<Post[]> =>
   fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/posts?year=${year}&month=${month}`
-  ).then((res) => res.json());
+  ).then(handleResponse);
 
 export const getPost = (pid: string): Promise<Post> =>
   fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/posts/${pid}`).then(
-    (res) => res.json()
+    handleResponse
   );
 
 export const getSummary = (): Promise<Archive[]> =>
-  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/summary`).then((res) =>
-    res.json()
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/summary`).then(
+    handleResponse
   );

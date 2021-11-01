@@ -15,18 +15,14 @@ const Post = () => {
   const {
     query: { pid },
   } = useRouter();
-  const { data: post } = useQuery(["getPost", pid], () =>
+  const { data: post, isSuccess } = useQuery(["getPost", pid], () =>
     getPost(pid as string)
   );
-
-  if (!post) {
-    return null;
-  }
 
   return (
     <>
       <Head>
-        <title>{post.title}</title>
+        <title>ThoughtBank</title>
         <meta name="description" content="blog post" />
       </Head>
       <Container maxWidth="lg">
@@ -43,15 +39,23 @@ const Post = () => {
                 },
               }}
             >
-              <div key={post._id} className="markdown">
-                <Typography gutterBottom variant="h4" component="h1">
-                  {post.title}
-                </Typography>
-                <Typography gutterBottom variant="caption" paragraph>
-                  {post.created}
-                </Typography>
-                <Markdown>{post.body}</Markdown>
-              </div>
+              {isSuccess && post ? (
+                <div className="markdown">
+                  <Typography gutterBottom variant="h4" component="h1">
+                    {post.title}
+                  </Typography>
+                  <Typography gutterBottom variant="caption" paragraph>
+                    {post.created}
+                  </Typography>
+                  <Markdown>{post.body}</Markdown>
+                </div>
+              ) : (
+                <div>
+                  <Typography gutterBottom variant="h4" component="h1">
+                    Not Found
+                  </Typography>
+                </div>
+              )}
             </Grid>
             <Sidebar />
           </Grid>
@@ -65,7 +69,7 @@ export default Post;
 
 export async function getStaticPaths() {
   const queryClient = new QueryClient();
-  const posts = await queryClient.fetchQuery("getPosts", getPosts);
+  const posts = await queryClient.fetchQuery("getPosts", () => getPosts());
 
   return {
     paths: map(posts, (post) => ({ params: { pid: post._id } })),

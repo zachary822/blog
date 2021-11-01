@@ -18,9 +18,9 @@ export default async function handler(
     if (post) {
       res.status(200).json(post);
     } else {
-      res.status(404).json({});
+      res.status(404).json({ error: "not found" });
     }
   } catch (e) {
-    res.status(400).send({});
+    res.status(400).send({ error: "bad id" });
   }
 }

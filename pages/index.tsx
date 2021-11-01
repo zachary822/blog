@@ -6,7 +6,7 @@ import Blog from "../components/Blog";
 import { getPosts, getSummary } from "../utils/api";
 
 const Home: NextPage = () => {
-  const { data: posts = [] } = useQuery("posts", getPosts);
+  const { data: posts = [] } = useQuery("posts", () => getPosts());
 
   return (
     <>
@@ -24,7 +24,7 @@ export default Home;
 export async function getStaticProps(context: GetStaticPropsContext<any>) {
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery("posts", getPosts),
+    queryClient.prefetchQuery("posts", () => getPosts()),
     queryClient.prefetchQuery("summary", getSummary),
   ]);
 
