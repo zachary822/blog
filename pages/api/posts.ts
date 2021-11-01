@@ -21,14 +21,20 @@ export default async function handler(
       : {};
 
   const client = await clientPromise;
-  const posts = await client
+
+  let cursor = client
     .db("blog")
     .collection("posts")
     .find(find)
-    .sort({ created: -1 })
-    .limit(parseInt(limit as string))
-    .skip(parseInt(offset as string))
-    .toArray();
+    .sort({ created: -1 });
+
+  if (!(month && year)) {
+    cursor = cursor
+      .limit(parseInt(limit as string))
+      .skip(parseInt(offset as string));
+  }
+
+  const posts = await cursor.toArray();
 
   res.status(200).json(posts);
 }
