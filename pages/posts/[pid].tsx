@@ -45,7 +45,7 @@ const Post = () => {
                     {post.title}
                   </Typography>
                   <Typography gutterBottom variant="caption" paragraph>
-                    {post.created}
+                    {new Date(post.created).toLocaleString()}
                   </Typography>
                   <Markdown>{post.body}</Markdown>
                 </div>
