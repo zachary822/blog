@@ -1,17 +1,29 @@
+import { CacheProvider, EmotionCache } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import createEmotionCache from "../utils/createEmotionCache";
+import theme from "../utils/theme";
 
-const theme = createTheme();
+const clientSideEmotionCache = createEmotionCache();
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+function MyApp({
+  Component,
+  pageProps,
+  emotionCache = clientSideEmotionCache,
+}: MyAppProps) {
   const [queryClient] = useState(() => new QueryClient());
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
+        <title>ThoughtBank</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
@@ -22,7 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Hydrate>
         </QueryClientProvider>
       </ThemeProvider>
-    </>
+    </CacheProvider>
   );
 }
 
