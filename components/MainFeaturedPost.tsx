@@ -37,11 +37,13 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
     >
       {/* Increase the priority of the hero background image */}
       {
-        <Image
-          layout="fill"
-          src={post.image || DEFAULT_IMAGE}
-          alt={post.imageLabel}
-        />
+        <div style={{ display: "none" }}>
+          <Image
+            layout="fill"
+            src={post.image || DEFAULT_IMAGE}
+            alt={post.imageLabel}
+          />
+        </div>
       }
       <Box
         sx={{
