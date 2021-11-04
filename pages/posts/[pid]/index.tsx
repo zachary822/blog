@@ -6,10 +6,10 @@ import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
-import Header from "../../components/Header";
-import Markdown from "../../components/Markdown";
-import Sidebar from "../../components/Sidebar";
-import { getPost, getPosts, getSummary } from "../../utils/api";
+import Header from "../../../components/Header";
+import Markdown from "../../../components/Markdown";
+import Sidebar from "../../../components/Sidebar";
+import { getPost, getPosts, getSummary } from "../../../utils/api";
 
 const Post = () => {
   const {
