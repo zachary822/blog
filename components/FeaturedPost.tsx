@@ -8,9 +8,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Post } from "../utils/models";
 import Markdown from "./Markdown";
-import sample from "lodash/sample";
-
-const THEMES = ["nature", "animals", "wanderlust", "city"];
 
 interface FeaturedPostProps {
   post: Post;
@@ -54,10 +51,7 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
             >
               <Image
                 unoptimized
-                src={
-                  post.image ||
-                  `https://source.unsplash.com/random?${sample(THEMES)}`
-                }
+                src={post.image!}
                 alt={post.imageLabel}
                 layout="fill"
                 objectFit="cover"
