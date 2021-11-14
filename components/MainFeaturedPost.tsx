@@ -39,6 +39,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
       {
         <div style={{ display: "none" }}>
           <Image
+            unoptimized
             layout="fill"
             src={post.image || DEFAULT_IMAGE}
             alt={post.imageLabel}

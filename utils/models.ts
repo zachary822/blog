@@ -14,3 +14,7 @@ export type Archive = {
   };
   count: number;
 };
+
+export type ErrorResponse = {
+  error: string;
+};

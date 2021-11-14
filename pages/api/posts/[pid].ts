@@ -1,10 +1,11 @@
 import { Document, ObjectId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { ErrorResponse } from "../../../utils/models";
 import clientPromise from "../../../utils/mongodb";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Document>
+  res: NextApiResponse<Document | ErrorResponse>
 ) {
   const { pid } = req.query;
 
@@ -21,6 +22,6 @@ export default async function handler(
       res.status(404).json({ error: "not found" });
     }
   } catch (e) {
-    res.status(400).send({ error: "bad id" });
+    res.status(400).json({ error: "bad id" });
   }
 }
