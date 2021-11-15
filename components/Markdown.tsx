@@ -19,10 +19,13 @@ function Code({ children }: any) {
     >
       {Children.map(children, (child) => {
         const c = cloneElement(child, {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
           ref: useRef(),
           style: { background: grey[100] },
         });
+        // @ts-ignore
         if (c.ref.current) {
+          // @ts-ignore
           hljs.highlightElement(c.ref.current);
         }
         return c;
