@@ -41,6 +41,11 @@ export const options = {
     li: {
       component: MarkdownListItem,
     },
+    img: {
+      props: {
+        width: "100%",
+      },
+    },
   },
 };
 
