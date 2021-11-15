@@ -5,31 +5,30 @@ import Typography from "@mui/material/Typography";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import ReactMarkdown from "markdown-to-jsx";
-import { Children, cloneElement, useRef } from "react";
+import { useEffect } from "react";
 
 function MarkdownListItem(props: any) {
   return <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />;
 }
 
-function Code({ children }: any) {
+function CodeBlock({ children }: any) {
   return (
     <Box
       component="pre"
       sx={{ bgcolor: grey[100], borderRadius: 1, padding: 1 }}
     >
-      {Children.map(children, (child) => {
-        const c = cloneElement(child, {
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          ref: useRef(),
-          style: { background: grey[100] },
-        });
-        // @ts-ignore
-        if (c.ref.current) {
-          // @ts-ignore
-          hljs.highlightElement(c.ref.current);
-        }
-        return c;
-      })}
+      {children}
+    </Box>
+  );
+}
+
+function InlineCode({ children }: any) {
+  return (
+    <Box
+      component="code"
+      sx={{ bgcolor: grey[100], borderRadius: 1, paddingInline: 0.5 }}
+    >
+      {children}
     </Box>
   );
 }
@@ -74,11 +73,18 @@ export const options = {
       },
     },
     pre: {
-      component: Code,
+      component: CodeBlock,
+    },
+    code: {
+      component: InlineCode,
     },
   },
 };
 
 export default function Markdown(props: any) {
+  useEffect(() => {
+    hljs.highlightAll();
+  }, []);
+
   return <ReactMarkdown options={options} {...props} />;
 }
