@@ -63,7 +63,12 @@ export const options = {
       component: Typography,
       props: { paragraph: true },
     },
-    a: { component: Link },
+    a: {
+      component: Link,
+      props: {
+        rel: "noreferrer",
+      },
+    },
     li: {
       component: MarkdownListItem,
     },
