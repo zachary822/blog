@@ -33,7 +33,7 @@ function MyApp({
           <Hydrate state={pageProps.dehydratedState}>
             <Box
               className="pattern-vertical-lines-md"
-              sx={{ color: "#FDE482", bgcolor: "#FACB0E" }}
+              sx={{ color: "#FDE482", bgcolor: "#FACB0E", minHeight: "100vh" }}
             >
               <Component {...pageProps} />
             </Box>
