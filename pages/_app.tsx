@@ -1,10 +1,12 @@
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import "pattern.css/dist/pattern.css";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import "../styles/globals.scss";
 import createEmotionCache from "../utils/createEmotionCache";
 import theme from "../utils/theme";
 
@@ -27,10 +29,14 @@ function MyApp({
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
+            <Box
+              className="pattern-vertical-lines-md"
+              sx={{ color: "#FDE482", bgcolor: "#FACB0E" }}
+            >
+              <Component {...pageProps} />
+            </Box>
           </Hydrate>
         </QueryClientProvider>
       </ThemeProvider>

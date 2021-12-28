@@ -21,7 +21,7 @@ const mainFeaturedPost = {
 export default function Blog({ posts }: { posts: Post[] }) {
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />
         <main>
           <MainFeaturedPost post={posts[0] || mainFeaturedPost} />

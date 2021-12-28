@@ -25,7 +25,7 @@ const Post = () => {
         <title>ThoughtBank</title>
         <meta name="description" content="blog post" />
       </Head>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />
         <main>
           <Grid container spacing={5} sx={{ mt: 3 }}>
