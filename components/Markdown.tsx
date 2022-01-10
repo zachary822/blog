@@ -5,17 +5,32 @@ import Typography from "@mui/material/Typography";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import ReactMarkdown from "markdown-to-jsx";
-import { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+
+function useHighlight() {
+  const codeRef = useRef();
+
+  useEffect(() => {
+    if (codeRef.current) {
+      hljs.highlightElement(codeRef.current);
+    }
+  }, []);
+
+  return codeRef;
+}
 
 function MarkdownListItem(props: any) {
   return <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />;
 }
 
 function CodeBlock({ children }: any) {
+  const codeRef = useHighlight();
+
   return (
     <Box
       component="pre"
       sx={{ bgcolor: grey[100], borderRadius: 1, padding: 1 }}
+      ref={codeRef}
     >
       {children}
     </Box>
@@ -23,10 +38,13 @@ function CodeBlock({ children }: any) {
 }
 
 function InlineCode({ children }: any) {
+  const codeRef = useHighlight();
+
   return (
     <Box
       component="code"
       sx={{ bgcolor: grey[100], borderRadius: 1, paddingInline: 0.5 }}
+      ref={codeRef}
     >
       {children}
     </Box>
@@ -87,9 +105,5 @@ export const options = {
 };
 
 export default function Markdown(props: any) {
-  useEffect(() => {
-    hljs.highlightAll();
-  }, []);
-
   return <ReactMarkdown options={options} {...props} />;
 }
