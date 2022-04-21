@@ -53,7 +53,7 @@ export default function Sidebar() {
         );
       })}
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-        Social
+        Socials
       </Typography>
       {social.map((network) => (
         <NextLink key={network.name} href={network.url} passHref>

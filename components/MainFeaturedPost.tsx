@@ -27,7 +27,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
       sx={{
         position: "relative",
         backgroundColor: "grey.800",
-        color: "#fff",
+        color: "#ffffff",
         mb: 4,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
