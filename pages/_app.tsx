@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import "pattern.css/dist/pattern.css";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import "../styles/globals.scss";
@@ -31,12 +30,7 @@ function MyApp({
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <Box
-              className="pattern-vertical-lines-md"
-              sx={{ color: "#FDE482", bgcolor: "#FACB0E", minHeight: "100vh" }}
-            >
-              <Component {...pageProps} />
-            </Box>
+            <Component {...pageProps} />
           </Hydrate>
         </QueryClientProvider>
       </ThemeProvider>

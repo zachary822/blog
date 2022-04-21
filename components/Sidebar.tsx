@@ -24,7 +24,6 @@ export default function Sidebar() {
     <Grid item xs={12} md={4}>
       <Paper
         elevation={0}
-        className="pattern-diagonal-stripes-lg"
         sx={{ p: 2, bgcolor: "grey.200", color: "grey.500" }}
       >
         <Box sx={{ color: "text.primary" }}>
