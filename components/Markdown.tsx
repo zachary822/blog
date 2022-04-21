@@ -24,14 +24,8 @@ function MarkdownListItem(props: any) {
 }
 
 function CodeBlock({ children }: any) {
-  const codeRef = useHighlight();
-
   return (
-    <Box
-      component="pre"
-      sx={{ bgcolor: grey[100], borderRadius: 1, padding: 1 }}
-      ref={codeRef}
-    >
+    <Box component="pre" sx={{ bgcolor: grey[100], borderRadius: 1 }}>
       {children}
     </Box>
   );
@@ -43,7 +37,7 @@ function InlineCode({ children }: any) {
   return (
     <Box
       component="code"
-      sx={{ bgcolor: grey[100], borderRadius: 1, paddingInline: 0.5 }}
+      sx={{ bgcolor: grey[100], borderRadius: 1 }}
       ref={codeRef}
     >
       {children}
