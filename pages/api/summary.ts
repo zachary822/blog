@@ -16,6 +16,11 @@ export default async function handler(
     .collection("posts")
     .aggregate([
       {
+        $match: {
+          published: { $eq: true },
+        },
+      },
+      {
         $group: {
           _id: {
             year: { $year: "$created" },

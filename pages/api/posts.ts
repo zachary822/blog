@@ -15,10 +15,13 @@ export default async function handler(
             $and: [
               { $eq: [{ $year: "$created" }, parseInt(year as string)] },
               { $eq: [{ $month: "$created" }, parseInt(month as string)] },
+              { $eq: ["$published", true] },
             ],
           },
         }
-      : {};
+      : {
+          published: { $eq: true },
+        };
 
   const client = await clientPromise;
 
