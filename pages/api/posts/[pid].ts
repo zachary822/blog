@@ -14,7 +14,7 @@ export default async function handler(
     const post = await client
       .db("blog")
       .collection("posts")
-      .findOne({ _id: new ObjectId(pid as string) });
+      .findOne({ _id: new ObjectId(pid as string), published: { $eq: true } });
 
     if (post) {
       res.status(200).json(post);
