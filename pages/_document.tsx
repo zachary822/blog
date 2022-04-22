@@ -21,6 +21,24 @@ export default class MyDocument extends Document {
           />
           <link rel="icon" href="/favicon.ico" />
           <CssBaseline />
+          {process.env.NODE_ENV === "production" && (
+            <>
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GTAG}`}
+              ></script>
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+                      gtag('config', '${process.env.NEXT_PUBLIC_GTAG}');
+              `,
+                }}
+              ></script>
+            </>
+          )}
         </Head>
         <body>
           <Main />
