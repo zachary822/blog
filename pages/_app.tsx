@@ -1,5 +1,4 @@
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import type { AppProps } from "next/app";
 import Head from "next/head";
