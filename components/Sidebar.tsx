@@ -57,7 +57,7 @@ export default function Sidebar() {
         );
       })}
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-        Socials
+        {t("Socials")}
       </Typography>
       <Socials socials={socials} />
     </Grid>
