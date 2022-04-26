@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import map from "lodash/map";
 import { GetStaticPropsContext } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
@@ -92,10 +93,10 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext<any>) {
-  const {
-    params: { pid: year, month },
-  } = context;
+export async function getStaticProps({
+  locale = "en",
+  params: { pid: year, month },
+}: GetStaticPropsContext<any>) {
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery("summary", getSummary),
@@ -107,6 +108,7 @@ export async function getStaticProps(context: GetStaticPropsContext<any>) {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      ...(await serverSideTranslations(locale)),
     },
   };
 }

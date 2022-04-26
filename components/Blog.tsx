@@ -1,5 +1,6 @@
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import { useTranslation } from "next-i18next";
 import { Post } from "../utils/models";
 
 import FeaturedPost from "./FeaturedPost";
@@ -19,6 +20,7 @@ const mainFeaturedPost = {
 };
 
 export default function Blog({ posts }: { posts: Post[] }) {
+  const { t } = useTranslation();
   return (
     <>
       <Container maxWidth="lg" sx={{ color: "text.primary" }}>
@@ -39,7 +41,7 @@ export default function Blog({ posts }: { posts: Post[] }) {
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title="From the firehose" posts={posts.slice(3)} />
+            <Main title={t("From the firehose")} posts={posts.slice(3)} />
             <Sidebar />
           </Grid>
         </main>

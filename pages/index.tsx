@@ -3,6 +3,7 @@ import { GetStaticPropsContext } from "next";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import Blog from "../components/Blog";
 import { getPosts, getSummary } from "../utils/api";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Home: NextPage = () => {
   const { data: posts = [] } = useQuery("posts", () => getPosts());
@@ -12,7 +13,9 @@ const Home: NextPage = () => {
 
 export default Home;
 
-export async function getStaticProps(context: GetStaticPropsContext<any>) {
+export async function getStaticProps({
+  locale = "en",
+}: GetStaticPropsContext<any>) {
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery("posts", () => getPosts()),
@@ -22,6 +25,7 @@ export async function getStaticProps(context: GetStaticPropsContext<any>) {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      ...(await serverSideTranslations(locale)),
     },
   };
 }
