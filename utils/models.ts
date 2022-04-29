@@ -8,10 +8,8 @@ export type Post = {
 };
 
 export type Archive = {
-  _id: {
-    year: number;
-    month: number;
-  };
+  year: number;
+  month: number;
   count: number;
 };
 

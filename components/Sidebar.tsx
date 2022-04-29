@@ -41,12 +41,12 @@ export default function Sidebar() {
         {t("Archives")}
       </Typography>
       {archives.map((archive) => {
-        const d = new Date(archive._id.year, archive._id.month - 1, 1);
+        const d = new Date(archive.year, archive.month - 1, 1);
 
         return (
           <NextLink
-            key={`${archive._id.year}_${archive._id.month}`}
-            href={`/posts/${archive._id.year}/${archive._id.month}`}
+            key={`${archive.year}_${archive.month}`}
+            href={`/posts/${archive.year}/${archive.month}`}
             passHref
           >
             <Link display="block" variant="body1">

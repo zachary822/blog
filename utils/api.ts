@@ -9,23 +9,23 @@ const handleResponse = (res: Response) => {
 
 export const getPosts = (offset = 0, limit = 10): Promise<Post[]> =>
   fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/posts?offset=${offset}&limit=${limit}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/?offset=${offset}&limit=${limit}`
   ).then(handleResponse);
 
 export const getPostsByMonth = (
   year: number | string,
   month: number | string
 ): Promise<Post[]> =>
-  fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/posts?year=${year}&month=${month}`
-  ).then(handleResponse);
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/${year}/${month}/`).then(
+    handleResponse
+  );
 
 export const getPost = (pid: string): Promise<Post> =>
-  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/posts/${pid}`).then(
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/${pid}/`).then(
     handleResponse
   );
 
 export const getSummary = (): Promise<Archive[]> =>
-  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/summary`).then(
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/summary/`).then(
     handleResponse
   );
