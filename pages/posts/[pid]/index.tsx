@@ -72,7 +72,17 @@ const Post = () => {
 
 export default Post;
 
-export async function getServerSideProps({
+export async function getStaticPaths() {
+  const queryClient = new QueryClient();
+  const posts = await queryClient.fetchQuery("getPosts", () => getPosts());
+
+  return {
+    paths: map(posts, (post) => ({ params: { pid: post._id } })),
+    fallback: "blocking",
+  };
+}
+
+export async function getStaticProps({
   locale = "en",
   params: { pid },
 }: GetStaticPropsContext<any>) {

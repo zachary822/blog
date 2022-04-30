@@ -79,7 +79,21 @@ const MonthPosts = () => {
 
 export default MonthPosts;
 
-export async function getServerSideProps({
+export async function getStaticPaths() {
+  const queryClient = new QueryClient();
+  const summary = await queryClient.fetchQuery("summary", getSummary);
+
+  return {
+    paths: map(summary, (s) => {
+      return {
+        params: { pid: s.year.toString(), month: s.month.toString() },
+      };
+    }),
+    fallback: "blocking",
+  };
+}
+
+export async function getStaticProps({
   locale = "en",
   params: { pid: year, month },
 }: GetStaticPropsContext<any>) {
