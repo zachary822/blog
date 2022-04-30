@@ -15,19 +15,19 @@ export const options = {
 
 export const defaultComponents = {
   h1: (props: any) => (
-    <Typography {...props} gutterBottom variant="h4" component="h1" />
+    <Typography {...props} gutterBottom variant="h5" component="h1" />
   ),
   h2: (props: any) => (
     <Typography {...props} gutterBottom variant="h6" component="h2" />
   ),
   h3: (props: any) => (
-    <Typography {...props} gutterBottom variant="subtitle1" />
+    <Typography {...props} gutterBottom variant="subtitle1" component="h3" />
   ),
   h4: (props: any) => (
-    <Typography {...props} gutterBottom variant="caption" paragraph />
+    <Typography {...props} gutterBottom variant="caption" component="h4" />
   ),
   p: (props: any) => <Typography {...props} paragraph />,
-  a: (props: any) => <Link {...props} rel="noreferrer" />,
+  a: (props: any) => <Link {...props} rel="noreferrer" target="_blank" />,
   li: (props: any) => (
     <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />
   ),
