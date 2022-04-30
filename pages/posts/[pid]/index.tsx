@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
-import Markdown from "../../../components/Markdown";
+import PostBody from "../../../components/Post";
 import Sidebar from "../../../components/Sidebar";
 import { getPost, getPosts, getSummary } from "../../../utils/api";
 
@@ -44,15 +44,7 @@ const Post = () => {
               }}
             >
               {isSuccess && post ? (
-                <div className="markdown">
-                  <Typography gutterBottom variant="h4" component="h1">
-                    {post.title}
-                  </Typography>
-                  <Typography gutterBottom variant="caption" paragraph>
-                    {new Date(post.created).toLocaleString()}
-                  </Typography>
-                  <Markdown>{post.body}</Markdown>
-                </div>
+                <PostBody post={post} />
               ) : (
                 <div>
                   <Typography gutterBottom variant="h4" component="h1">

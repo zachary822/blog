@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
-import Markdown from "../../../components/Markdown";
+import Post from "../../../components/Post";
 import Sidebar from "../../../components/Sidebar";
 import { getPostsByMonth, getSummary } from "../../../utils/api";
 
@@ -57,15 +57,7 @@ const MonthPosts = () => {
               </Typography>
               <Divider />
               {posts.map((post) => (
-                <div key={post._id} className="markdown">
-                  <Typography gutterBottom variant="h4" component="h1">
-                    {post.title}
-                  </Typography>
-                  <Typography gutterBottom variant="caption" paragraph>
-                    {post.created}
-                  </Typography>
-                  <Markdown>{post.body}</Markdown>
-                </div>
+                <Post post={post} key={post._id} />
               ))}
             </Grid>
             <Sidebar />
