@@ -2,102 +2,58 @@ import Box from "@mui/material/Box";
 import { grey } from "@mui/material/colors";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
-import ReactMarkdown from "markdown-to-jsx";
-import React, { useEffect, useRef } from "react";
+import { MDXRemote } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
+import React, { useEffect, useState } from "react";
+import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
 
-function useHighlight() {
-  const codeRef = useRef();
+export const options = {
+  overrides: {},
+};
 
-  useEffect(() => {
-    if (codeRef.current) {
-      hljs.highlightElement(codeRef.current);
-    }
-  }, []);
-
-  return codeRef;
-}
-
-function MarkdownListItem(props: any) {
-  return <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />;
-}
-
-function CodeBlock({ children }: any) {
-  return (
-    <Box component="pre" sx={{ bgcolor: grey[100], borderRadius: 1 }}>
-      {children}
-    </Box>
-  );
-}
-
-function InlineCode({ children }: any) {
-  const codeRef = useHighlight();
-
-  return (
+export const defaultComponents = {
+  h1: (props: any) => (
+    <Typography {...props} gutterBottom variant="h4" component="h1" />
+  ),
+  h2: (props: any) => (
+    <Typography {...props} gutterBottom variant="h6" component="h2" />
+  ),
+  h3: (props: any) => (
+    <Typography {...props} gutterBottom variant="subtitle1" />
+  ),
+  h4: (props: any) => (
+    <Typography {...props} gutterBottom variant="caption" paragraph />
+  ),
+  p: (props: any) => <Typography {...props} paragraph />,
+  a: (props: any) => <Link {...props} rel="noreferrer" />,
+  li: (props: any) => (
+    <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />
+  ),
+  img: (props: any) => <img alt="image" {...props} width="100%" />,
+  code: (props: any) => (
     <Box
       component="code"
       sx={{ bgcolor: grey[100], borderRadius: 1 }}
-      ref={codeRef}
-    >
-      {children}
-    </Box>
-  );
-}
-
-export const options = {
-  overrides: {
-    h1: {
-      component: Typography,
-      props: {
-        gutterBottom: true,
-        variant: "h4",
-        component: "h1",
-      },
-    },
-    h2: {
-      component: Typography,
-      props: { gutterBottom: true, variant: "h6", component: "h2" },
-    },
-    h3: {
-      component: Typography,
-      props: { gutterBottom: true, variant: "subtitle1" },
-    },
-    h4: {
-      component: Typography,
-      props: {
-        gutterBottom: true,
-        variant: "caption",
-        paragraph: true,
-      },
-    },
-    p: {
-      component: Typography,
-      props: { paragraph: true },
-    },
-    a: {
-      component: Link,
-      props: {
-        rel: "noreferrer",
-      },
-    },
-    li: {
-      component: MarkdownListItem,
-    },
-    img: {
-      props: {
-        width: "100%",
-      },
-    },
-    pre: {
-      component: CodeBlock,
-    },
-    code: {
-      component: InlineCode,
-    },
-  },
+      {...props}
+    />
+  ),
 };
 
-export default function Markdown(props: any) {
-  return <ReactMarkdown options={options} {...props} />;
+export default function Markdown({ children, components }: any) {
+  const [source, setSource] = useState<any>();
+  useEffect(() => {
+    serialize(children, {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [rehypeHighlight],
+      },
+    }).then(setSource);
+  }, [children]);
+  return (
+    source && (
+      <MDXRemote {...source} components={components || defaultComponents} />
+    )
+  );
 }

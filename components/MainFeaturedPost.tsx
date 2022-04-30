@@ -7,7 +7,7 @@ import merge from "lodash/merge";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Post } from "../utils/models";
-import Markdown, { options } from "./Markdown";
+import Markdown, { defaultComponents } from "./Markdown";
 
 const DEFAULT_IMAGE = "https://source.unsplash.com/random?water";
 
@@ -15,8 +15,8 @@ interface MainFeaturedPostProps {
   post: Post;
 }
 
-const customOptions = merge({}, options, {
-  overrides: { p: { props: { variant: "h5" } } },
+const components = merge({}, defaultComponents, {
+  p: (props: any) => <Typography {...props} component="p" variant="h5" />,
 });
 
 export default function MainFeaturedPost(props: MainFeaturedPostProps) {
@@ -83,7 +83,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
                   "linear-gradient(rgba(0, 0, 0, 1.0) 3rem, transparent)",
               }}
             >
-              <Markdown options={customOptions}>{post.body}</Markdown>
+              <Markdown components={components}>{post.body}</Markdown>
             </Typography>
             <NextLink href={`/posts/${post._id}`} passHref>
               <Link variant="subtitle1">Continue Reading...</Link>
