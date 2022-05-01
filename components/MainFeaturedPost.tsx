@@ -75,6 +75,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
             </Typography>
             <Typography
               variant="h5"
+              component="div"
               color="inherit"
               sx={{
                 maxHeight: "5.8rem",

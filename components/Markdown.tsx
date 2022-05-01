@@ -35,7 +35,7 @@ export const defaultComponents = {
   code: (props: any) => (
     <Box
       component="code"
-      sx={{ bgcolor: grey[100], borderRadius: 1 }}
+      sx={{ bgcolor: grey[100], borderRadius: 1, p: 0.2 }}
       {...props}
     />
   ),
