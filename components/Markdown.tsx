@@ -4,10 +4,7 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import "highlight.js/styles/github.css";
 import { MDXRemote } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
-import React, { useEffect, useState } from "react";
-import rehypeHighlight from "rehype-highlight";
-import remarkGfm from "remark-gfm";
+import React from "react";
 
 export const options = {
   overrides: {},
@@ -41,19 +38,6 @@ export const defaultComponents = {
   ),
 };
 
-export default function Markdown({ children, components }: any) {
-  const [source, setSource] = useState<any>();
-  useEffect(() => {
-    serialize(children, {
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeHighlight],
-      },
-    }).then(setSource);
-  }, [children]);
-  return (
-    source && (
-      <MDXRemote {...source} components={components || defaultComponents} />
-    )
-  );
+export default function Markdown({ body, components }: any) {
+  return <MDXRemote {...body} components={components || defaultComponents} />;
 }

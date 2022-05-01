@@ -1,11 +1,20 @@
-export type Post = {
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+
+export type BasePost = {
   _id: string;
   created: string;
-  body: string;
   image?: string;
   imageLabel?: string;
   title: string;
 };
+
+export interface RawPost extends BasePost {
+  body: string;
+}
+
+export interface Post extends BasePost {
+  body: MDXRemoteSerializeResult;
+}
 
 export type Archive = {
   year: number;

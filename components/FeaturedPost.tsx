@@ -39,7 +39,7 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                   "linear-gradient(rgba(0, 0, 0, 1.0) 1.4rem, transparent)",
               }}
             >
-              <Markdown>{post.body}</Markdown>
+              <Markdown body={post.body} />
             </Typography>
             <Typography variant="subtitle1" color="primary">
               Continue reading...

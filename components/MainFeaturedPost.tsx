@@ -84,7 +84,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
                   "linear-gradient(rgba(0, 0, 0, 1.0) 3rem, transparent)",
               }}
             >
-              <Markdown components={components}>{post.body}</Markdown>
+              <Markdown components={components} body={post.body} />
             </Typography>
             <NextLink href={`/posts/${post._id}`} passHref>
               <Link variant="subtitle1">Continue Reading...</Link>

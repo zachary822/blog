@@ -16,7 +16,7 @@ const Post = ({ post }: PostProps) => {
       <Typography gutterBottom variant="caption" paragraph>
         {post.created}
       </Typography>
-      <Markdown>{post.body}</Markdown>
+      <Markdown body={post.body} />
     </div>
   );
 };
