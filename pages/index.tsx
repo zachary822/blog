@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { GetStaticPropsContext } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import Blog from "../components/Blog";
 import { getPosts, getSummary } from "../utils/api";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Home: NextPage = () => {
   const { data: posts = [] } = useQuery("posts", () => getPosts());

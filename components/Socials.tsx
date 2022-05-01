@@ -1,7 +1,7 @@
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
-import NextLink from "next/link";
 import SvgIcon from "@mui/material/SvgIcon";
+import NextLink from "next/link";
 
 interface Social {
   name: string;
