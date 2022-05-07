@@ -1,6 +1,4 @@
-import { serialize } from "next-mdx-remote/serialize";
-import rehypeHighlight from "rehype-highlight";
-import remarkGfm from "remark-gfm";
+import { serializeMarkdown } from "./markdown";
 import { Archive, Post, RawPost } from "./models";
 
 const handleResponse = (res: Response) => {
@@ -13,12 +11,7 @@ const handleResponse = (res: Response) => {
 const processPost = (post: RawPost) => {
   return Promise.all([
     Promise.resolve(post),
-    serialize(post.body, {
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeHighlight],
-      },
-    }),
+    serializeMarkdown(post.body),
   ]).then(([post, body]) => ({ ...post, body }));
 };
 
