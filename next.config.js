@@ -5,6 +5,6 @@ module.exports = {
   i18n,
   reactStrictMode: true,
   images: {
-    domains: ["source.unsplash.com", "i.imgur.com"],
+    domains: ["source.unsplash.com", "i.imgur.com", "api.thoughtbank.app"],
   },
 };
