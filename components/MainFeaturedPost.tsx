@@ -18,10 +18,18 @@ interface MainFeaturedPostProps {
 const components = merge({}, defaultComponents, {
   p: (props: any) => <Typography {...props} component="p" variant="h5" />,
   pre: (props: any) => (
-    <Box {...props} component="pre" sx={{ bgcolor: "transparent" }} />
+    <Box
+      {...props}
+      component="pre"
+      sx={{ bgcolor: "transparent", m: 0, p: 0 }}
+    />
   ),
   code: (props: any) => (
-    <Box {...props} component="code" sx={{ bgcolor: "transparent" }} />
+    <Box
+      {...props}
+      component="code"
+      sx={{ bgcolor: "transparent", m: 0, p: 0 }}
+    />
   ),
 });
 
