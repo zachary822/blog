@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Post } from "../utils/models";
-import Markdown from "./Markdown";
 
 interface FeaturedPostProps {
   post: Post;
@@ -38,9 +37,7 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                 maskImage:
                   "linear-gradient(rgba(0, 0, 0, 1.0) 1.4rem, transparent)",
               }}
-            >
-              <Markdown body={post.body} iframes={false} />
-            </Typography>
+            />
             <Typography variant="subtitle1" color="primary">
               Continue reading...
             </Typography>
