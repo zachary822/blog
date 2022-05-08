@@ -11,10 +11,6 @@ import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { RefObject, useCallback, useRef } from "react";
 import { toast } from "react-toastify";
 
-export const options = {
-  overrides: {},
-};
-
 const Copy = styled.div`
   position: absolute;
   top: 0.5rem;
@@ -67,9 +63,6 @@ const Img = styled.img`
   width: 100%;
 `;
 
-const IFrame = (props: any) => <iframe {...props}></iframe>;
-export const MockIFrame = () => <div />;
-
 export const defaultComponents = {
   h1: (props: any) => (
     <Typography {...props} gutterBottom variant="h5" component="h1" />
@@ -91,15 +84,26 @@ export const defaultComponents = {
   img: (props: any) => <Img alt="image" {...props} />,
   code: Code,
   pre: CodeBlock,
-  IFrame,
 };
+
+const HideIframe = styled.div<{ iframes: boolean }>`
+  iframe {
+    display: ${({ iframes = false }: any) => (iframes ? "inherit" : "none")};
+  }
+`;
 
 export default function Markdown({
   body,
+  iframes = true,
   components,
 }: {
   body: MDXRemoteSerializeResult;
+  iframes?: boolean;
   components?: MDXComponents;
 }) {
-  return <MDXRemote {...body} components={components || defaultComponents} />;
+  return (
+    <HideIframe iframes={iframes}>
+      <MDXRemote {...body} components={components || defaultComponents} />
+    </HideIframe>
+  );
 }
