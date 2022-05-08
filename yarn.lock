@@ -7676,6 +7676,7 @@ __metadata:
     react: ^18.1.0
     react-dom: ^18.1.0
     react-query: ^3.38.1
+    react-toastify: ^9.0.1
     rehype-highlight: ^5.0.2
     remark-gfm: ^3.0.1
     sass: ^1.51.0
@@ -7964,6 +7965,18 @@ __metadata:
     react-native:
       optional: true
   checksum: 2edb95dbc0184aa1858e7a47161372c871d0077583e439cfce4473231f426a222990ad313ad1eaf6fca1025e502d006f4f92008b346a83900be148a7e3ededc2
+  languageName: node
+  linkType: hard
+
+"react-toastify@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "react-toastify@npm:9.0.1"
+  dependencies:
+    clsx: ^1.1.1
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 920603bfd18d26537ad7fcd31899eea1469922176a730a8e597c199447af79cb8dba3bd30e9327aa3f841790737d564880f76c83b60ec34c4b1c5c32e2a79b06
   languageName: node
   linkType: hard
 

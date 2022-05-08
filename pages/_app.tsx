@@ -5,6 +5,8 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.scss";
 import createEmotionCache from "../utils/createEmotionCache";
 import theme from "../utils/theme";
@@ -31,6 +33,18 @@ function MyApp({
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
             <Component {...pageProps} />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover={false}
+              theme="colored"
+            />
           </Hydrate>
         </QueryClientProvider>
       </ThemeProvider>
