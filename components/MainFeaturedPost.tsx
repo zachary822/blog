@@ -7,7 +7,7 @@ import merge from "lodash/merge";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Post } from "../utils/models";
-import Markdown, { defaultComponents } from "./Markdown";
+import Markdown, { defaultComponents, MockIFrame } from "./Markdown";
 
 const DEFAULT_IMAGE = "https://source.unsplash.com/random?water";
 
@@ -17,6 +17,7 @@ interface MainFeaturedPostProps {
 
 const components = merge({}, defaultComponents, {
   p: (props: any) => <Typography {...props} component="p" variant="h5" />,
+  IFrame: MockIFrame,
 });
 
 export default function MainFeaturedPost(props: MainFeaturedPostProps) {

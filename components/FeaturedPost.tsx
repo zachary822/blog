@@ -7,11 +7,15 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Post } from "../utils/models";
-import Markdown from "./Markdown";
+import Markdown, { defaultComponents, MockIFrame } from "./Markdown";
 
 interface FeaturedPostProps {
   post: Post;
 }
+
+const components = Object.assign({}, defaultComponents, {
+  IFrame: MockIFrame,
+});
 
 export default function FeaturedPost({ post }: FeaturedPostProps) {
   const router = useRouter();
@@ -39,7 +43,7 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
                   "linear-gradient(rgba(0, 0, 0, 1.0) 1.4rem, transparent)",
               }}
             >
-              <Markdown body={post.body} />
+              <Markdown body={post.body} components={components} />
             </Typography>
             <Typography variant="subtitle1" color="primary">
               Continue reading...

@@ -6,7 +6,8 @@ import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import "highlight.js/styles/github.css";
-import { MDXRemote } from "next-mdx-remote";
+import { MDXComponents } from "mdx/types";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { RefObject, useCallback, useRef } from "react";
 import { toast } from "react-toastify";
 
@@ -66,6 +67,9 @@ const Img = styled.img`
   width: 100%;
 `;
 
+const IFrame = (props: any) => <iframe {...props}></iframe>;
+export const MockIFrame = () => <div />;
+
 export const defaultComponents = {
   h1: (props: any) => (
     <Typography {...props} gutterBottom variant="h5" component="h1" />
@@ -87,8 +91,15 @@ export const defaultComponents = {
   img: (props: any) => <Img alt="image" {...props} />,
   code: Code,
   pre: CodeBlock,
+  IFrame,
 };
 
-export default function Markdown({ body, components }: any) {
+export default function Markdown({
+  body,
+  components,
+}: {
+  body: MDXRemoteSerializeResult;
+  components?: MDXComponents;
+}) {
   return <MDXRemote {...body} components={components || defaultComponents} />;
 }
