@@ -9,6 +9,6 @@ export const serializeMarkdown = (
   serialize(text, {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeHighlight],
+      rehypePlugins: [[rehypeHighlight, { ignoreMissing: true }]],
     },
   });
