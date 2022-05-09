@@ -29,15 +29,6 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
             <Typography variant="subtitle1" color="text.secondary">
               {new Date(post.created).toLocaleString()}
             </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{
-                height: "2.8rem",
-                overflow: "hidden",
-                maskImage:
-                  "linear-gradient(rgba(0, 0, 0, 1.0) 1.4rem, transparent)",
-              }}
-            />
             <Typography variant="subtitle1" color="primary">
               Continue reading...
             </Typography>

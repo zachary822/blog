@@ -14,7 +14,7 @@ const Post = ({ post }: PostProps) => {
         {post.title}
       </Typography>
       <Typography gutterBottom variant="caption" paragraph>
-        {post.created}
+        {new Date(post.created).toLocaleString()}
       </Typography>
       <Markdown body={post.body} />
     </div>
