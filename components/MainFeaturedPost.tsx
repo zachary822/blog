@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -70,46 +69,33 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
           backgroundColor: "rgba(0,0,0,.3)",
         }}
       />
-      <Grid container>
-        <Grid item md={6}>
-          <Box
-            sx={{
-              position: "relative",
-              p: { xs: 3, md: 6 },
-              pr: { md: 0 },
-            }}
-          >
-            <Typography
-              component="h1"
-              variant="h3"
-              color="inherit"
-              gutterBottom
-            >
-              {post.title}
-            </Typography>
-            <Typography
-              variant="h5"
-              component="div"
-              color="inherit"
-              sx={{
-                maxHeight: "5.8rem",
-                overflow: "hidden",
-                maskImage:
-                  "linear-gradient(rgba(0, 0, 0, 1.0) 3rem, transparent)",
-              }}
-            >
-              <Markdown
-                components={components}
-                body={post.body}
-                iframes={false}
-              />
-            </Typography>
-            <NextLink href={`/posts/${post._id}`} passHref>
-              <Link variant="subtitle1">Continue Reading...</Link>
-            </NextLink>
-          </Box>
-        </Grid>
-      </Grid>
+      <Box
+        sx={{
+          position: "relative",
+          p: { xs: 3, md: 6 },
+          pr: { md: 0 },
+        }}
+      >
+        <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+          {post.title}
+        </Typography>
+        <Typography
+          variant="h5"
+          component="div"
+          color="inherit"
+          sx={{
+            width: "100%",
+            maxHeight: "5.8rem",
+            overflow: "hidden",
+            maskImage: "linear-gradient(rgba(0, 0, 0, 1.0) 3rem, transparent)",
+          }}
+        >
+          <Markdown components={components} body={post.body} iframes={false} />
+        </Typography>
+        <NextLink href={`/posts/${post._id}`} passHref>
+          <Link variant="subtitle1">Continue Reading...</Link>
+        </NextLink>
+      </Box>
     </Paper>
   );
 }

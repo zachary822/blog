@@ -23,7 +23,7 @@ export default function Blog({ posts }: { posts: Post[] }) {
   const { t } = useTranslation();
   return (
     <>
-      <Container maxWidth="lg" sx={{ color: "text.primary" }}>
+      <Container maxWidth="lg">
         <Header title="ThoughtBank" />
         <main>
           <MainFeaturedPost post={posts[0] || mainFeaturedPost} />

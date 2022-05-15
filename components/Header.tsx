@@ -1,5 +1,6 @@
 import Link from "@mui/material/Link";
 import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
 
 interface HeaderProps {
@@ -14,18 +15,20 @@ export default function Header(props: HeaderProps) {
       <Toolbar
         sx={{ borderBottom: 1, borderColor: "divider", marginBottom: 1 }}
       >
-        <NextLink href="/" passHref>
-          <Link
-            component="a"
-            variant="h5"
-            color="inherit"
-            align="center"
-            noWrap
-            sx={{ flex: 1, textDecoration: "none" }}
-          >
-            {title}
-          </Link>
-        </NextLink>
+        <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
+          align="center"
+          noWrap
+          sx={{ flex: 1 }}
+        >
+          <NextLink href="/" passHref>
+            <Link color="inherit" noWrap sx={{ textDecoration: "none" }}>
+              {title}
+            </Link>
+          </NextLink>
+        </Typography>
       </Toolbar>
     </>
   );

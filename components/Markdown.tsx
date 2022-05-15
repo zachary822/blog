@@ -39,7 +39,7 @@ const CodeBlock = ({ children, ...props }: any) => {
   const ref = useRef<HTMLElement>(null);
 
   return (
-    <Box
+    <Typography
       sx={{ bgcolor: grey[100], borderRadius: 1, position: "relative" }}
       {...props}
       component="pre"
@@ -47,12 +47,12 @@ const CodeBlock = ({ children, ...props }: any) => {
     >
       <CopyButton text={ref} />
       {children}
-    </Box>
+    </Typography>
   );
 };
 
 const Code = (props: any) => (
-  <Box
+  <Typography
     component="code"
     sx={{ bgcolor: grey[100], borderRadius: 1, p: 0.2 }}
     {...props}

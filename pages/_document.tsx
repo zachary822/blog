@@ -1,5 +1,4 @@
 import createEmotionServer from "@emotion/server/create-instance";
-import CssBaseline from "@mui/material/CssBaseline";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
 import createEmotionCache from "../utils/createEmotionCache";
@@ -20,7 +19,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
           <link rel="icon" href="/favicon.ico" />
-          <CssBaseline />
+          {(this.props as any).emotionStyleTags}
         </Head>
         <body>
           <Main />
