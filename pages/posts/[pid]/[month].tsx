@@ -51,7 +51,7 @@ const MonthPosts = () => {
                 },
               }}
             >
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h4" gutterBottom>
                 {d.toLocaleString("default", { month: "long" })}{" "}
                 {d.getFullYear()}
               </Typography>

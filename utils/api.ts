@@ -15,14 +15,29 @@ const processPost = (post: RawPost) => {
   ]).then(([post, body]) => ({ ...post, body }));
 };
 
-export const getPosts = (offset = 0, limit = 10): Promise<Post[]> =>
-  fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/?offset=${offset}&limit=${limit}`
-  )
+interface GetPostConfig {
+  query?: string;
+  offset?: number;
+  limit?: number;
+}
+
+export const getPosts = ({
+  query,
+  offset = 0,
+  limit = 10,
+}: GetPostConfig = {}): Promise<Post[]> => {
+  let url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/?offset=${offset}&limit=${limit}`;
+
+  if (typeof query !== "undefined") {
+    url += `&q=${query}`;
+  }
+
+  return fetch(url)
     .then(handleResponse)
     .then((posts) => {
       return Promise.all(posts.map(processPost));
     });
+};
 
 export const getPostsByMonth = (
   year: number | string,
@@ -43,3 +58,14 @@ export const getSummary = (): Promise<Archive[]> =>
   fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/summary/`).then(
     handleResponse
   );
+
+export const getAutocomplete = (query: string) => {
+  return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/suggestions/`, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    body: query,
+  }).then(handleResponse);
+};
