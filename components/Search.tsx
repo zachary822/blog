@@ -1,5 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
@@ -55,37 +56,38 @@ const Search = () => {
   );
 
   return (
-    <form action="" onSubmit={onSubmit}>
-      <Autocomplete
-        freeSolo
-        disableClearable
-        options={options}
-        inputValue={inputValue}
-        onInputChange={(e, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
-        size="small"
-        sx={{ width: { md: "15em", xs: "100%" } }}
-        renderInput={(params) => (
-          <TextField
-            variant="outlined"
-            {...params}
-            InputProps={{
-              ...params.InputProps,
-              placeholder: "Search…",
-              type: "search",
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton type="submit">
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        )}
-      />
-    </form>
+    <Box sx={{ mb: 1 }}>
+      <form action="" onSubmit={onSubmit}>
+        <Autocomplete
+          freeSolo
+          disableClearable
+          options={options}
+          inputValue={inputValue}
+          onInputChange={(e, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          size="small"
+          renderInput={(params) => (
+            <TextField
+              variant="outlined"
+              {...params}
+              InputProps={{
+                ...params.InputProps,
+                placeholder: "Search…",
+                type: "search",
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton type="submit">
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+        />
+      </form>
+    </Box>
   );
 };
 

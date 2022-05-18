@@ -1,9 +1,7 @@
-import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import NextLink from "next/link";
-import Search from "./Search";
 
 interface HeaderProps {
   title: string;
@@ -22,7 +20,6 @@ export default function Header(props: HeaderProps) {
           justifyContent: "center",
         }}
       >
-        <Box sx={{ flex: 1 }} />
         <Typography
           component="h2"
           variant="h5"
@@ -37,9 +34,6 @@ export default function Header(props: HeaderProps) {
             </Link>
           </NextLink>
         </Typography>
-        <Box sx={{ flex: 1, display: "flex", justifyContent: "end" }}>
-          <Search />
-        </Box>
       </Toolbar>
     </>
   );

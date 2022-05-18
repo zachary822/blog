@@ -9,6 +9,7 @@ import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import { useQuery } from "react-query";
 import { getSummary } from "../utils/api";
+import Search from "./Search";
 import Socials from "./Socials";
 
 const socials = [
@@ -26,6 +27,7 @@ export default function Sidebar() {
 
   return (
     <Grid item xs={12} md={4}>
+      <Search />
       <Paper
         elevation={0}
         sx={{ p: 2, bgcolor: "grey.200", color: "grey.500" }}
