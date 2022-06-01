@@ -4,10 +4,9 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
+import _ from "lodash";
 import { useRouter } from "next/router";
 import { FormEventHandler, useCallback, useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { getAutocomplete } from "../utils/api";
 
 function useDebounce(value: string, delay: number) {
   // State and setters for debounced value
@@ -30,22 +29,65 @@ function useDebounce(value: string, delay: number) {
   return debouncedValue;
 }
 
+const useWebSocket = ({
+  url,
+  protocols = undefined,
+}: {
+  url: string;
+  protocols?: Array<string>;
+}) => {
+  const [ws, setWs] = useState<WebSocket | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const ws = new WebSocket(url, protocols);
+
+    ws.onopen = function () {
+      setReady(true);
+      setWs(this);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, [url, protocols]);
+
+  return { ready, ws };
+};
+
 const Search = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
-  const debounceInputValue = useDebounce(inputValue, 200);
-  const { data: options = [], refetch } = useQuery(
-    ["getAutocomplete", debounceInputValue],
-    () => {
-      return getAutocomplete(debounceInputValue);
-    },
-    { enabled: false, retry: false }
-  );
+  const [options, setOptions] = useState<string[]>([]);
+
+  const { ready, ws } = useWebSocket({
+    url: `${process.env.NEXT_PUBLIC_WS_BASE_URL}/posts/suggestions/`,
+  });
+
   useEffect(() => {
-    if (debounceInputValue) {
-      refetch();
+    if (ready) {
+      ws!.onmessage = (ev) => {
+        try {
+          setOptions(JSON.parse(ev.data));
+        } finally {
+        }
+      };
     }
-  }, [debounceInputValue, refetch]);
+  }, [ready, ws]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sendInput = useCallback(
+    _.debounce((text) => {
+      if (ready) {
+        ws!.send(text);
+      }
+    }, 100),
+    [ready, ws]
+  );
+
+  useEffect(() => {
+    sendInput(inputValue);
+  }, [sendInput, inputValue]);
 
   const onSubmit = useCallback<FormEventHandler>(
     (e) => {
