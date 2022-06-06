@@ -4,48 +4,31 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
+import _ from "lodash";
 import { useRouter } from "next/router";
 import { FormEventHandler, useCallback, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getAutocomplete } from "../utils/api";
 
-function useDebounce(value: string, delay: number) {
-  // State and setters for debounced value
-  const [debouncedValue, setDebouncedValue] = useState(value);
-  useEffect(
-    () => {
-      // Update debounced value after delay
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-      // Cancel the timeout if value changes (also on delay change or unmount)
-      // This is how we prevent debounced value from updating if value is changed ...
-      // .. within the delay period. Timeout gets cleared and restarted.
-      return () => {
-        clearTimeout(handler);
-      };
-    },
-    [value, delay] // Only re-call effect if value or delay changes
-  );
-  return debouncedValue;
-}
-
 const Search = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
-  const debounceInputValue = useDebounce(inputValue, 200);
   const { data: options = [], refetch } = useQuery(
-    ["getAutocomplete", debounceInputValue],
+    ["getAutocomplete", inputValue],
     () => {
-      return getAutocomplete(debounceInputValue);
+      console.log("hmm");
+      return getAutocomplete(inputValue);
     },
     { enabled: false, retry: false }
   );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedRefetch = useCallback(_.debounce(refetch, 200), [refetch]);
+
   useEffect(() => {
-    if (debounceInputValue) {
-      refetch();
+    if (inputValue) {
+      debouncedRefetch();
     }
-  }, [debounceInputValue, refetch]);
+  }, [inputValue, debouncedRefetch]);
 
   const onSubmit = useCallback<FormEventHandler>(
     (e) => {
