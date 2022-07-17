@@ -18,6 +18,12 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="ThoughtBank Blog Feed"
+            href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/feed/`}
+          />
           <link rel="icon" href="/favicon.ico" />
           {(this.props as any).emotionStyleTags}
         </Head>
