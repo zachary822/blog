@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Post from "../../components/Post";
@@ -70,7 +70,7 @@ export async function getServerSideProps({
   locale = "en",
 }: GetStaticPropsContext<any>) {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery("summary", getSummary);
+  await queryClient.prefetchQuery(["summary"], getSummary);
 
   return {
     props: {

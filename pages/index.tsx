@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import Blog from "../components/Blog";
 import { getPosts, getSummary } from "../utils/api";
 
 const Home: NextPage = () => {
-  const { data: posts = [] } = useQuery("posts", () => getPosts());
+  const { data: posts = [] } = useQuery(["posts"], () => getPosts());
 
   return <Blog posts={posts} />;
 };
@@ -18,8 +18,8 @@ export async function getStaticProps({
 }: GetStaticPropsContext<any>) {
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery("posts", () => getPosts()),
-    queryClient.prefetchQuery("summary", getSummary),
+    queryClient.prefetchQuery(["posts"], () => getPosts()),
+    queryClient.prefetchQuery(["summary"], getSummary),
   ]);
 
   return {

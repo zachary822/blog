@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { FormEventHandler, useCallback, useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getAutocomplete } from "../utils/api";
 
 const Search = () => {

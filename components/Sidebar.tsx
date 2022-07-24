@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getSummary } from "../utils/api";
 import Search from "./Search";
 import Socials from "./Socials";
@@ -22,7 +22,7 @@ const socials = [
 ];
 
 export default function Sidebar() {
-  const { data: archives = [] } = useQuery("summary", getSummary);
+  const { data: archives = [] } = useQuery(["summary"], getSummary);
   const { t } = useTranslation();
 
   return (

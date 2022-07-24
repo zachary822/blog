@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
 import PostBody from "../../../components/Post";
@@ -66,7 +66,7 @@ export default Post;
 
 export async function getStaticPaths() {
   const queryClient = new QueryClient();
-  const posts = await queryClient.fetchQuery("getPosts", () => getPosts());
+  const posts = await queryClient.fetchQuery(["getPosts"], () => getPosts());
 
   return {
     paths: map(posts, (post) => ({ params: { pid: post._id } })),
@@ -81,7 +81,7 @@ export async function getStaticProps({
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery(["getPost", pid], () => getPost(pid)),
-    queryClient.prefetchQuery("summary", getSummary),
+    queryClient.prefetchQuery(["summary"], getSummary),
   ]);
 
   return {

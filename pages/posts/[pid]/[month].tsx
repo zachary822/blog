@@ -7,7 +7,7 @@ import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
 import Post from "../../../components/Post";
@@ -73,7 +73,7 @@ export default MonthPosts;
 
 export async function getStaticPaths() {
   const queryClient = new QueryClient();
-  const summary = await queryClient.fetchQuery("summary", getSummary);
+  const summary = await queryClient.fetchQuery(["summary"], getSummary);
 
   return {
     paths: map(summary, (s) => {
@@ -91,7 +91,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<any>) {
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery("summary", getSummary),
+    queryClient.prefetchQuery(["summary"], getSummary),
     queryClient.prefetchQuery(["month", year, month], () =>
       getPostsByMonth(year, month)
     ),
