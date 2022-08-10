@@ -32,8 +32,10 @@ const MonthPosts = () => {
     <>
       <Head>
         <title>
-          Posts: {d.toLocaleString("default", { month: "long" })}{" "}
-          {d.getFullYear()}
+          {"Posts: " +
+            d.toLocaleString("default", { month: "long" }) +
+            " " +
+            d.getFullYear()}
         </title>
         <meta name="description" content="blog post" />
       </Head>
