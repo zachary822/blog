@@ -18,7 +18,7 @@ import theme from "../utils/theme";
 
 const clientSideEmotionCache = createEmotionCache();
 
-interface MyAppProps extends AppProps {
+interface MyAppProps extends AppProps<any> {
   emotionCache?: EmotionCache;
 }
 
@@ -28,6 +28,7 @@ function MyApp({
   emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
   const [queryClient] = useState(() => new QueryClient());
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
