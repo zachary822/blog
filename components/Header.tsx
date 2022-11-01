@@ -28,16 +28,15 @@ export default function Header(props: HeaderProps) {
           noWrap
           sx={{ flex: { xs: 3, md: 1 } }}
         >
-          <NextLink href="/" passHref>
-            <Link
-              color="inherit"
-              noWrap
-              sx={{ textDecoration: "none" }}
-              component="span"
-            >
-              {title}
-            </Link>
-          </NextLink>
+          <Link
+            color="inherit"
+            noWrap
+            component={NextLink}
+            href="/"
+            underline="none"
+          >
+            {title}
+          </Link>
         </Typography>
       </Toolbar>
     </>

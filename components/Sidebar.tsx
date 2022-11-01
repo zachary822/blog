@@ -46,16 +46,16 @@ export default function Sidebar() {
         const d = new Date(archive.year, archive.month - 1, 1);
 
         return (
-          <NextLink
+          <Link
             key={`${archive.year}_${archive.month}`}
+            display="block"
+            variant="body1"
+            component={NextLink}
             href={`/posts/${archive.year}/${archive.month}`}
-            passHref
           >
-            <Link display="block" variant="body1" component="span">
-              {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}{" "}
-              ({archive.count})
-            </Link>
-          </NextLink>
+            {d.toLocaleString("default", { month: "long" })} {d.getFullYear()} (
+            {archive.count})
+          </Link>
         );
       })}
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>

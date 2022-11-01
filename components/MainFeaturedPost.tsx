@@ -92,11 +92,13 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
         >
           <Markdown components={components} body={post.body} iframes={false} />
         </Typography>
-        <NextLink href={`/posts/${post._id}`} passHref>
-          <Link variant="subtitle1" component="span">
-            Continue Reading...
-          </Link>
-        </NextLink>
+        <Link
+          variant="subtitle1"
+          component={NextLink}
+          href={`/posts/${post._id}`}
+        >
+          Continue Reading...
+        </Link>
       </Box>
     </Paper>
   );
