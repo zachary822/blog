@@ -21,6 +21,7 @@ export default function Socials({ socials }: SocialsProps) {
           <Link
             display="block"
             variant="body1"
+            component="span"
             target={"_blank"}
             sx={{ mb: 0.5 }}
           >

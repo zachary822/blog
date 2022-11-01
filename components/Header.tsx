@@ -29,7 +29,12 @@ export default function Header(props: HeaderProps) {
           sx={{ flex: { xs: 3, md: 1 } }}
         >
           <NextLink href="/" passHref>
-            <Link color="inherit" noWrap sx={{ textDecoration: "none" }}>
+            <Link
+              color="inherit"
+              noWrap
+              sx={{ textDecoration: "none" }}
+              component="span"
+            >
               {title}
             </Link>
           </NextLink>

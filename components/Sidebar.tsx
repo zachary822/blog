@@ -51,7 +51,7 @@ export default function Sidebar() {
             href={`/posts/${archive.year}/${archive.month}`}
             passHref
           >
-            <Link display="block" variant="body1">
+            <Link display="block" variant="body1" component="span">
               {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}{" "}
               ({archive.count})
             </Link>
