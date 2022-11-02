@@ -22,7 +22,7 @@ const socials = [
 ];
 
 export default function Sidebar() {
-  const { data: archives = [] } = useQuery(["summary"], getSummary);
+  const { data: summary } = useQuery(["summary"], getSummary);
   const { t } = useTranslation();
 
   return (
@@ -40,9 +40,9 @@ export default function Sidebar() {
         </Box>
       </Paper>
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-        {t("Archives")}
+        {t("Monthly Archives")}
       </Typography>
-      {archives.map((archive) => {
+      {summary?.monthly.map((archive) => {
         const d = new Date(archive.year, archive.month - 1, 1);
 
         return (
@@ -55,6 +55,22 @@ export default function Sidebar() {
           >
             {d.toLocaleString("default", { month: "long" })} {d.getFullYear()} (
             {archive.count})
+          </Link>
+        );
+      })}
+      <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+        {t("Tags")}
+      </Typography>
+      {summary?.tags.map((tag) => {
+        return (
+          <Link
+            key={tag.name}
+            display="block"
+            variant="body1"
+            component={NextLink}
+            href={`/posts/tags/${tag.name}`}
+          >
+            {tag.name} ({tag.count})
           </Link>
         );
       })}

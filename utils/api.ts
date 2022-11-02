@@ -1,5 +1,5 @@
 import { serializeMarkdown } from "./markdown";
-import { Archive, Post, RawPost } from "./models";
+import { Post, RawPost, Summary } from "./models";
 
 const handleResponse = (res: Response) => {
   if (!res.ok) {
@@ -49,12 +49,19 @@ export const getPostsByMonth = (
       return Promise.all(posts.map(processPost));
     });
 
+export const getPostsByTag = (tag: string): Promise<Post[]> =>
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/tags/${tag}/`)
+    .then(handleResponse)
+    .then((posts) => {
+      return Promise.all(posts.map(processPost));
+    });
+
 export const getPost = (pid: string): Promise<Post> =>
   fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/${pid}/`)
     .then(handleResponse)
     .then(processPost);
 
-export const getSummary = (): Promise<Archive[]> =>
+export const getSummary = (): Promise<Summary> =>
   fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/summary/`).then(
     handleResponse
   );
