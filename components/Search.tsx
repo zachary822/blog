@@ -16,7 +16,6 @@ const Search = () => {
   const { data: options = [], refetch } = useQuery(
     ["getAutocomplete", inputValue],
     () => {
-      console.log("hmm");
       return getAutocomplete(inputValue);
     },
     { enabled: false, retry: false }
@@ -43,7 +42,6 @@ const Search = () => {
       <form action="" onSubmit={onSubmit}>
         <Autocomplete
           freeSolo
-          disableClearable
           options={options}
           inputValue={inputValue}
           onInputChange={(e, newInputValue) => {
@@ -58,13 +56,6 @@ const Search = () => {
                 ...params.InputProps,
                 placeholder: "Search…",
                 type: "search",
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconButton type="submit">
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
               }}
             />
           )}
