@@ -55,7 +55,7 @@ const Code = (props: any) => (
   <Box
     component="code"
     sx={{
-      bgcolor: grey[100],
+      bgcolor: `${grey[100]} !important`,
       borderRadius: 1,
       p: 0.2,
     }}

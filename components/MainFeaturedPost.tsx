@@ -27,7 +27,7 @@ const components = merge({}, defaultComponents, {
     <Box
       {...props}
       component="code"
-      sx={{ bgcolor: "transparent", m: 0, p: 0 }}
+      sx={{ bgcolor: "transparent !important", m: 0, p: 0 }}
     />
   ),
 });
