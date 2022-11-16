@@ -1,10 +1,11 @@
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { Post } from "../utils/models";
 
@@ -34,17 +35,14 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
             </Typography>
           </CardContent>
           <CardMedia sx={{ width: 160, display: { xs: "none", sm: "block" } }}>
-            <div
-              style={{ position: "relative", width: "100%", height: "100%" }}
-            >
+            <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
               <Image
                 unoptimized
                 src={post.image!}
-                alt={post.imageLabel}
-                layout="fill"
-                objectFit="cover"
+                alt={post.imageLabel || "stock image"}
+                fill
               />
-            </div>
+            </Box>
           </CardMedia>
         </Card>
       </CardActionArea>

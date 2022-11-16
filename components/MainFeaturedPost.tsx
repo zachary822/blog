@@ -3,7 +3,7 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import merge from "lodash/merge";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import NextLink from "next/link";
 import { Post } from "../utils/models";
 import Markdown, { defaultComponents } from "./Markdown";
@@ -53,9 +53,9 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
         <div style={{ display: "none" }}>
           <Image
             unoptimized
-            layout="fill"
             src={post.image || DEFAULT_IMAGE}
-            alt={post.imageLabel}
+            alt={post.imageLabel || "stock image"}
+            fill
           />
         </div>
       }
