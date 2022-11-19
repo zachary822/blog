@@ -1,5 +1,5 @@
 import Post from "./Post";
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "../utils/test-utils";
 
 describe("Test Post", () => {
   test("test post", () => {
@@ -8,9 +8,12 @@ describe("Test Post", () => {
       body: "body" as any,
       title: "title",
       created: new Date().toLocaleString(),
+      updated: new Date().toLocaleString(),
+      tags: [],
     };
     render(<Post post={post} />);
     expect(screen.getByText(post.title)).toBeInTheDocument();
-    expect(screen.getByText(post.created)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(post.created))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(post.updated))).toBeInTheDocument();
   });
 });
