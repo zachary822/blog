@@ -1,14 +1,36 @@
+import Container from "@mui/material/Container";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import Blog from "../components/Blog";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 import { getPosts, getSummary } from "../utils/api";
 
-const Home: NextPage = () => {
-  const { data: posts = [] } = useQuery(["posts"], () => getPosts());
+const DynamicPosts = dynamic(() => import("../components/Posts"), {
+  suspense: true,
+});
 
-  return <Blog posts={posts} />;
+const Home: NextPage = () => {
+  const { data: posts = [], isLoading } = useQuery(["posts"], () => getPosts());
+
+  return (
+    <>
+      <Container maxWidth="lg">
+        <Header title="ThoughtBank" />
+        <main>
+          {!isLoading ? (
+            <Suspense>
+              <DynamicPosts posts={posts} />
+            </Suspense>
+          ) : null}
+        </main>
+      </Container>
+      <Footer />
+    </>
+  );
 };
 
 export default Home;

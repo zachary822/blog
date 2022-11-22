@@ -1,13 +1,10 @@
-import SearchIcon from "@mui/icons-material/Search";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
-import _ from "lodash";
+import { useQuery } from "@tanstack/react-query";
+import debounce from "lodash/debounce";
 import { useRouter } from "next/router";
 import { FormEventHandler, useCallback, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { getAutocomplete } from "../utils/api";
 
 const Search = () => {
@@ -21,7 +18,7 @@ const Search = () => {
     { enabled: false, retry: false }
   );
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedRefetch = useCallback(_.debounce(refetch, 200), [refetch]);
+  const debouncedRefetch = useCallback(debounce(refetch, 200), [refetch]);
 
   useEffect(() => {
     if (inputValue) {

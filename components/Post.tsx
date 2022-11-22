@@ -1,19 +1,16 @@
+import SellIcon from "@mui/icons-material/Sell";
+import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import "highlight.js/styles/github.css";
-import { useTranslation } from "next-i18next";
+import NextLink from "next/link";
 import { Post as PostModel } from "../utils/models";
 import Markdown from "./Markdown";
-import Chip from "@mui/material/Chip";
-import NextLink from "next/link";
-import SellIcon from "@mui/icons-material/Sell";
 
 interface PostProps {
   post: PostModel;
 }
 
 const Post = ({ post }: PostProps) => {
-  const { t } = useTranslation();
-
   return (
     <div className="markdown">
       <Typography gutterBottom variant="h4" component="h1">
