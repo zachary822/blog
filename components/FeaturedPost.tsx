@@ -27,7 +27,11 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
             <Typography component="h2" variant="h5">
               {post.title}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              suppressHydrationWarning
+            >
               {new Date(post.created).toLocaleString()}
             </Typography>
             <Typography variant="subtitle1" color="primary">
