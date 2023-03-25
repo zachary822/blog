@@ -26,8 +26,8 @@ const Post = () => {
   return (
     <>
       <Head>
-        <title>ThoughtBank</title>
-        <meta name="description" content="blog post" />
+        <title>{"ThoughtBank" + (post && " | " + post.title)}</title>
+        <meta name="description" content={post?.summary || ""} />
       </Head>
       <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />

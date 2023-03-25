@@ -7,6 +7,7 @@ export type BasePost = {
   image?: string;
   imageLabel?: string;
   title: string;
+  summary?: string;
   tags: string[];
 };
 
