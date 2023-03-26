@@ -49,15 +49,13 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
       }}
     >
       {/* Increase the priority of the hero background image */}
-      {
-        <div style={{ display: "none" }}>
-          <Image
-            src={post.image || DEFAULT_IMAGE}
-            alt={post.imageLabel || "stock image"}
-            fill
-          />
-        </div>
-      }
+      <div style={{ display: "none" }}>
+        <Image
+          src={post.image || DEFAULT_IMAGE}
+          alt={post.imageLabel || "stock image"}
+          fill
+        />
+      </div>
       <Box
         sx={{
           position: "absolute",
@@ -72,7 +70,6 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
         sx={{
           position: "relative",
           p: { xs: 3, md: 6 },
-          pr: { md: 0 },
         }}
       >
         <Typography component="h1" variant="h3" color="inherit" gutterBottom>
