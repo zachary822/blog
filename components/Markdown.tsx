@@ -80,9 +80,7 @@ export const defaultComponents = {
   h4: (props: any) => (
     <Typography {...props} gutterBottom variant="caption" component="h4" />
   ),
-  p: (props: any) => (
-    <Typography {...props} paragraph sx={{ textIndent: "12.7mm" }} />
-  ),
+  p: (props: any) => <Typography {...props} paragraph />,
   a: (props: any) => <Link {...props} rel="noreferrer" target="_blank" />,
   li: (props: any) => (
     <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />
