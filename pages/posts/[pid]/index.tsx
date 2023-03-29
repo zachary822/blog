@@ -19,7 +19,7 @@ const Post = () => {
     query: { pid },
   } = useRouter();
   const { data: post, isSuccess } = useQuery(["getPost", pid], () =>
-    getPost(pid as string)
+    getPost(pid as string),
   );
   const { t } = useTranslation();
 
@@ -28,6 +28,10 @@ const Post = () => {
       <Head>
         <title>{"ThoughtBank" + (post && " | " + post.title)}</title>
         <meta name="description" content={post?.summary || ""} />
+
+        <meta property="og:title" content={post?.title} />
+        <meta property="og:description" content={post?.summary || ""} />
+        {post?.image ? <meta property="og:url" content={post.image} /> : null}
       </Head>
       <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />
