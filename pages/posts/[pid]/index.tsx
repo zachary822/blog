@@ -26,7 +26,7 @@ const Post = () => {
   return (
     <>
       <Head>
-        <title>{"ThoughtBank" + (post && " | " + post.title)}</title>
+        <title>{"ThoughtBank" + (post ? " | " + post.title : "")}</title>
         <meta name="description" content={post?.summary || ""} />
 
         <meta property="og:title" content={post?.title} />
