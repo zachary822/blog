@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
-    "@mdx-js/react": "^1.6.22",
+    "@mdx-js/react": "^2.3.0",
     "@storybook/addon-actions": "^7.0.2",
     "@storybook/addon-docs": "^7.0.2",
     "@storybook/addon-essentials": "^7.0.2",
