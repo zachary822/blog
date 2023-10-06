@@ -14,11 +14,13 @@ const Posts = () => {
     query: { q = "" },
   } = useRouter();
   const { t } = useTranslation();
-  const { data: posts = [], isSuccess } = useQuery(
-    ["getPosts", q],
-    () => getPosts({ query: q as string }),
-    { retry: false },
-  );
+  const {
+    data: posts = [],
+    isSuccess,
+    isError,
+  } = useQuery(["getPosts", q], () => getPosts({ query: q as string }), {
+    retry: false,
+  });
 
   return (
     <SidebarLayout>
@@ -26,9 +28,9 @@ const Posts = () => {
         {t("Search Results")}
       </Typography>
       <Divider />
-      {isSuccess ? (
-        posts.map((post) => <Post post={post} key={post._id} pt={3} />)
-      ) : (
+      {isSuccess &&
+        posts.map((post) => <Post post={post} key={post._id} pt={3} />)}
+      {isError && (
         <Typography variant="h6" component="h1" sx={{ mt: 1 }}>
           {t("Not Found")}
         </Typography>

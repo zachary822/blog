@@ -11,6 +11,15 @@ import { toast } from "react-toastify";
 import MarkdownCompiler, { MarkdownToJSX } from "markdown-to-jsx";
 import hljs from "highlight.js/lib/core";
 
+const LANGUAGES = [
+  "python",
+  "python-repl",
+  "typescript",
+  "javascript",
+  "shell",
+  "haskell",
+];
+
 hljs.registerLanguage("python", require("highlight.js/lib/languages/python"));
 hljs.registerLanguage(
   "python-repl",
@@ -20,9 +29,14 @@ hljs.registerLanguage(
   "typescript",
   require("highlight.js/lib/languages/typescript"),
 );
+hljs.registerLanguage(
+  "javascript",
+  require("highlight.js/lib/languages/javascript"),
+);
 hljs.registerLanguage("shell", require("highlight.js/lib/languages/shell"));
 hljs.registerLanguage("haskell", require("highlight.js/lib/languages/haskell"));
 
+hljs.registerAliases("js", { languageName: "javascript" });
 hljs.registerAliases("sh", { languageName: "shell" });
 
 const Copy = styled.div`
@@ -77,6 +91,9 @@ const Code = ({
       typeof children === "string"
     ) {
       const language = className.replace(/lang-/, "");
+      if (!LANGUAGES.includes(language)) {
+        return { children };
+      }
       try {
         return {
           dangerouslySetInnerHTML: {
