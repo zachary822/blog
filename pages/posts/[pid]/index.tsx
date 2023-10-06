@@ -35,31 +35,20 @@ const Post = () => {
       </Head>
       <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />
-        <main>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Grid
-              item
-              xs={12}
-              md={8}
-              sx={{
-                "& .markdown": {
-                  py: 3,
-                },
-              }}
-            >
-              {isSuccess && post ? (
-                <PostBody post={post} />
-              ) : (
-                <div>
-                  <Typography gutterBottom variant="h6" component="h1">
-                    {t("Not Found")}
-                  </Typography>
-                </div>
-              )}
-            </Grid>
-            <Sidebar />
+        <Grid container spacing={5} pt={3} component="main">
+          <Grid item xs={12} md={8}>
+            {isSuccess && post ? (
+              <PostBody post={post} />
+            ) : (
+              <div>
+                <Typography gutterBottom variant="h6" component="h1">
+                  {t("Not Found")}
+                </Typography>
+              </div>
+            )}
           </Grid>
-        </main>
+          <Sidebar />
+        </Grid>
       </Container>
       <Footer />
     </>

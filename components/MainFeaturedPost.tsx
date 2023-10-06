@@ -17,7 +17,7 @@ const overrides = {
   p: {
     component: Typography,
     props: {
-      variant: "h5",
+      variant: "h6",
       component: "p",
     },
   },

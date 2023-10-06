@@ -19,7 +19,7 @@ function Posts({ posts }: { posts: Post[] }) {
   const { t } = useTranslation();
 
   return (
-    <>
+    <main>
       <MainFeaturedPost post={posts[0] || mainFeaturedPost} />
       <Grid container spacing={4}>
         {posts.slice(1, 3).map((post: Post, i) => (
@@ -33,11 +33,11 @@ function Posts({ posts }: { posts: Post[] }) {
           />
         ))}
       </Grid>
-      <Grid container spacing={5} sx={{ mt: 3 }}>
+      <Grid container spacing={5} pt={3}>
         <Main title={t("From the firehose")} posts={posts.slice(3)} />
         <Sidebar />
       </Grid>
-    </>
+    </main>
   );
 }
 

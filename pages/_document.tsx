@@ -1,41 +1,50 @@
 import createEmotionServer from "@emotion/server/create-instance";
-import Document, { Head, Html, Main, NextScript } from "next/document";
+import Document, {
+  DocumentContext,
+  DocumentProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from "next/document";
 import React from "react";
 import createEmotionCache from "../utils/createEmotionCache";
 import theme, { roboto } from "../utils/theme";
 
-export default class MyDocument extends Document {
-  render() {
-    return (
-      <Html lang="en" className={roboto.className}>
-        <Head>
-          <meta name="theme-color" content={theme.palette.primary.main} />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          />
-          <link
-            rel="alternate"
-            type="application/rss+xml"
-            title="ThoughtBank Blog Feed"
-            href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/feed/`}
-          />
-          <link rel="shortcut icon" href="/favicon.ico" />
-          <meta name="emotion-insertion-point" content="" />
-          {(this.props as any).emotionStyleTags}
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
+interface MyDocumentProps extends DocumentProps {
+  emotionStyleTags: JSX.Element[];
+}
+
+export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
+  return (
+    <Html lang="en" className={roboto.className}>
+      <Head>
+        <meta name="theme-color" content={theme.palette.primary.main} />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="ThoughtBank Blog Feed"
+          href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/feed/`}
+        />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="emotion-insertion-point" content="" />
+        {emotionStyleTags}
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
 }
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with static-site generation (SSG).
-MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Resolution order
   //
   // On the server:

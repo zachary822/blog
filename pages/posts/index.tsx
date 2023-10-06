@@ -22,7 +22,7 @@ const Posts = () => {
   const { data: posts = [], isSuccess } = useQuery(
     ["getPosts", q],
     () => getPosts({ query: q as string }),
-    { retry: false }
+    { retry: false },
   );
 
   return (
@@ -33,33 +33,22 @@ const Posts = () => {
       </Head>
       <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />
-        <main>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Grid
-              item
-              xs={12}
-              md={8}
-              sx={{
-                "& .markdown": {
-                  py: 3,
-                },
-              }}
-            >
-              <Typography variant="h4" gutterBottom>
-                {t("Search Results")}
+        <Grid container spacing={5} pt={3} component="main">
+          <Grid item xs={12} md={8}>
+            <Typography variant="h4" gutterBottom>
+              {t("Search Results")}
+            </Typography>
+            <Divider />
+            {isSuccess ? (
+              posts.map((post) => <Post post={post} key={post._id} />)
+            ) : (
+              <Typography variant="h6" component="h1" sx={{ mt: 1 }}>
+                {t("Not Found")}
               </Typography>
-              <Divider />
-              {isSuccess ? (
-                posts.map((post) => <Post post={post} key={post._id} />)
-              ) : (
-                <Typography variant="h6" component="h1" sx={{ mt: 1 }}>
-                  {t("Not Found")}
-                </Typography>
-              )}
-            </Grid>
-            <Sidebar />
+            )}
           </Grid>
-        </main>
+          <Sidebar />
+        </Grid>
       </Container>
       <Footer />
     </>

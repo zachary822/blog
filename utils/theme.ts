@@ -8,4 +8,8 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
-export default createTheme();
+export default createTheme({
+  typography: {
+    fontFamily: [roboto.style.fontFamily].join(","),
+  },
+});

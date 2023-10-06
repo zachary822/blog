@@ -21,7 +21,7 @@ export default function Tags() {
   } = useRouter();
   const { t } = useTranslation();
   const { data: posts = [] } = useQuery(["tag", tag], () =>
-    getPostsByTag(tag as string)
+    getPostsByTag(tag as string),
   );
 
   return (
@@ -32,36 +32,21 @@ export default function Tags() {
       </Head>
       <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />
-        <main>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Grid
-              item
-              xs={12}
-              md={8}
-              sx={{
-                "& .markdown": {
-                  py: 3,
-                },
-              }}
-            >
-              <Typography variant="h4" gutterBottom>
-                {t("Tag")}:{" "}
-                <Typography
-                  fontFamily="monospace"
-                  variant="h4"
-                  component="span"
-                >
-                  {tag}
-                </Typography>
+        <Grid container spacing={5} pt={3} component="main">
+          <Grid item xs={12} md={8}>
+            <Typography variant="h4" gutterBottom>
+              {t("Tag")}:{" "}
+              <Typography fontFamily="monospace" variant="h4" component="span">
+                {tag}
               </Typography>
-              <Divider />
-              {posts.map((post) => (
-                <Post post={post} key={post._id} />
-              ))}
-            </Grid>
-            <Sidebar />
+            </Typography>
+            <Divider />
+            {posts.map((post) => (
+              <Post post={post} key={post._id} pt={3} />
+            ))}
           </Grid>
-        </main>
+          <Sidebar />
+        </Grid>
       </Container>
       <Footer />
     </>

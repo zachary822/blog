@@ -36,9 +36,9 @@ function MyApp({
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <CssBaseline />
             <Component {...pageProps} />
             <ToastContainer
               position="top-right"

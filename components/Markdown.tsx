@@ -77,19 +77,13 @@ const Code = ({
       typeof children === "string"
     ) {
       const language = className.replace(/lang-/, "");
-      let __html;
-
       try {
-        __html = hljs.highlight(children, { language }).value;
-      } catch (e) {
-        __html = children;
-      }
-
-      return {
-        dangerouslySetInnerHTML: {
-          __html,
-        },
-      };
+        return {
+          dangerouslySetInnerHTML: {
+            __html: hljs.highlight(children, { language }).value,
+          },
+        };
+      } catch (e) {}
     }
     return { children };
   }, [className, children]);
@@ -118,6 +112,7 @@ export const defaultOverrides = {
     props: {
       variant: "h5",
       component: "h1",
+      mb: 2,
     },
   },
   h2: {
@@ -125,6 +120,7 @@ export const defaultOverrides = {
     props: {
       variant: "h5",
       component: "h2",
+      mb: 2,
     },
   },
   h3: {
@@ -132,6 +128,7 @@ export const defaultOverrides = {
     props: {
       variant: "h5",
       component: "h3",
+      mb: 2,
     },
   },
   h4: {
@@ -139,6 +136,7 @@ export const defaultOverrides = {
     props: {
       variant: "h5",
       component: "h4",
+      mb: 2,
     },
   },
   p: {
@@ -167,7 +165,21 @@ export const defaultOverrides = {
     component: Box,
     props: {
       component: "li",
-      sx: { mt: 1, typography: "body1" },
+      sx: { mb: 1, typography: "body1" },
+    },
+  },
+  ol: {
+    component: Box,
+    props: {
+      component: "ol",
+      sx: { m: 0, typography: "body1" },
+    },
+  },
+  ul: {
+    component: Box,
+    props: {
+      component: "ul",
+      sx: { m: 0, typography: "body1" },
     },
   },
 };

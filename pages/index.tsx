@@ -20,13 +20,13 @@ const Home: NextPage = () => {
     <>
       <Container maxWidth="lg">
         <Header title="ThoughtBank" />
-        <main>
-          {!isLoading ? (
-            <Suspense>
-              <DynamicPosts posts={posts} />
-            </Suspense>
-          ) : null}
-        </main>
+        {!isLoading ? (
+          <Suspense>
+            <DynamicPosts posts={posts} />
+          </Suspense>
+        ) : (
+          <main />
+        )}
       </Container>
       <Footer />
     </>

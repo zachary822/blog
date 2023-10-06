@@ -19,13 +19,13 @@ const MonthPosts = () => {
     query: { pid: year, month },
   } = useRouter();
   const { data: posts = [] } = useQuery(["month", year, month], () =>
-    getPostsByMonth(year as string, month as string)
+    getPostsByMonth(year as string, month as string),
   );
 
   const d = new Date(
     parseInt(year as string),
     parseInt(month as string) - 1,
-    1
+    1,
   );
 
   return (
@@ -41,30 +41,18 @@ const MonthPosts = () => {
       </Head>
       <Container maxWidth="lg" sx={{ color: "text.primary" }}>
         <Header title="ThoughtBank" />
-        <main>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Grid
-              item
-              xs={12}
-              md={8}
-              sx={{
-                "& .markdown": {
-                  py: 3,
-                },
-              }}
-            >
-              <Typography variant="h4" gutterBottom>
-                {d.toLocaleString("default", { month: "long" })}{" "}
-                {d.getFullYear()}
-              </Typography>
-              <Divider />
-              {posts.map((post) => (
-                <Post post={post} key={post._id} />
-              ))}
-            </Grid>
-            <Sidebar />
+        <Grid container spacing={5} pt={3} component="main">
+          <Grid item xs={12} md={8}>
+            <Typography variant="h4">
+              {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}
+            </Typography>
+            <Divider />
+            {posts.map((post) => (
+              <Post post={post} key={post._id} pt={3} />
+            ))}
           </Grid>
-        </main>
+          <Sidebar />
+        </Grid>
       </Container>
       <Footer />
     </>
@@ -95,7 +83,7 @@ export async function getStaticProps({
   await Promise.all([
     queryClient.prefetchQuery(["summary"], getSummary),
     queryClient.prefetchQuery(["month", year, month], () =>
-      getPostsByMonth(year, month)
+      getPostsByMonth(year, month),
     ),
   ]);
 

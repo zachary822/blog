@@ -12,22 +12,13 @@ export default function Main(props: MainProps) {
   const { posts, title } = props;
 
   return (
-    <Grid
-      item
-      xs={12}
-      md={8}
-      sx={{
-        "& .markdown": {
-          py: 3,
-        },
-      }}
-    >
+    <Grid item xs={12} md={8}>
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
       <Divider />
       {posts.map((post) => (
-        <Post post={post} key={post._id} />
+        <Post post={post} key={post._id} pt={3} />
       ))}
     </Grid>
   );
