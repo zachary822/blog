@@ -1,5 +1,3 @@
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
-
 export type BasePost = {
   _id: string;
   created: string;
@@ -16,7 +14,7 @@ export interface RawPost extends BasePost {
 }
 
 export interface Post extends BasePost {
-  body: MDXRemoteSerializeResult;
+  body: string;
 }
 
 export type Month = {

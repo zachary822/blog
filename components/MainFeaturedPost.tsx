@@ -2,11 +2,10 @@ import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import merge from "lodash/merge";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Post } from "../utils/models";
-import Markdown, { defaultComponents } from "./Markdown";
+import Markdown from "./Markdown";
 
 const DEFAULT_IMAGE = "https://source.unsplash.com/random?water";
 
@@ -14,23 +13,29 @@ interface MainFeaturedPostProps {
   post: Post;
 }
 
-const components = merge({}, defaultComponents, {
-  p: (props: any) => <Typography {...props} component="p" variant="h5" />,
-  pre: (props: any) => (
-    <Box
-      {...props}
-      component="pre"
-      sx={{ bgcolor: "transparent", m: 0, p: 0 }}
-    />
-  ),
-  code: (props: any) => (
-    <Box
-      {...props}
-      component="code"
-      sx={{ bgcolor: "transparent !important", m: 0, p: 0 }}
-    />
-  ),
-});
+const overrides = {
+  p: {
+    component: Typography,
+    props: {
+      variant: "h5",
+      component: "p",
+    },
+  },
+  pre: {
+    component: Box,
+    props: {
+      component: "pre",
+      sx: { bgcolor: "transparent", m: 0, p: 0 },
+    },
+  },
+  code: {
+    component: Box,
+    props: {
+      component: "code",
+      sx: { bgcolor: "transparent !important", m: 0, p: 0 },
+    },
+  },
+};
 
 export default function MainFeaturedPost(props: MainFeaturedPostProps) {
   const { post } = props;
@@ -86,7 +91,7 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
             maskImage: "linear-gradient(rgba(0, 0, 0, 1.0) 3rem, transparent)",
           }}
         >
-          <Markdown components={components} body={post.body} iframes={false} />
+          <Markdown overrides={overrides} body={post.body} />
         </Typography>
         <Link
           variant="subtitle1"

@@ -6,10 +6,10 @@ import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import "highlight.js/styles/github.css";
-import { MDXComponents } from "mdx/types";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { RefObject, useCallback, useRef } from "react";
+import { ComponentProps, RefObject, useCallback, useMemo, useRef } from "react";
 import { toast } from "react-toastify";
+import MarkdownCompiler, { MarkdownToJSX } from "markdown-to-jsx";
+import hljs from "highlight.js";
 
 const Copy = styled.div`
   position: absolute;
@@ -35,12 +35,12 @@ const CopyButton = ({ text }: { text: RefObject<HTMLElement> }) => {
   );
 };
 
-const CodeBlock = ({ children, ...props }: any) => {
+const CodeBlock = ({ children, ...props }: ComponentProps<typeof Box>) => {
   const ref = useRef<HTMLElement>(null);
 
   return (
     <Box
-      sx={{ bgcolor: grey[100], borderRadius: 1, position: "relative" }}
+      sx={{ bgcolor: grey[100], borderRadius: 1, position: "relative", p: 2 }}
       {...props}
       component="pre"
       ref={ref}
@@ -51,63 +51,120 @@ const CodeBlock = ({ children, ...props }: any) => {
   );
 };
 
-const Code = (props: any) => (
-  <Box
-    component="code"
-    sx={{
-      bgcolor: `${grey[100]} !important`,
-      borderRadius: 1,
-      p: 0.2,
-    }}
-    {...props}
-  />
-);
+const Code = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<typeof Box>) => {
+  const code = useMemo(() => {
+    if (
+      className &&
+      className.startsWith("lang-") &&
+      typeof children === "string"
+    ) {
+      const language = className.replace(/lang-/, "");
+      return {
+        dangerouslySetInnerHTML: {
+          __html: hljs.highlight(children, { language }).value,
+        },
+      };
+    }
+    return { children };
+  }, [className, children]);
+
+  return (
+    <Box
+      component="code"
+      sx={{
+        bgcolor: `${grey[100]} !important`,
+        borderRadius: 1,
+        p: 0.2,
+      }}
+      {...props}
+      {...code}
+    />
+  );
+};
 
 const Img = styled.img`
   width: 100%;
 `;
 
-export const defaultComponents = {
-  h1: (props: any) => (
-    <Typography {...props} gutterBottom variant="h5" component="h1" />
-  ),
-  h2: (props: any) => (
-    <Typography {...props} gutterBottom variant="h6" component="h2" />
-  ),
-  h3: (props: any) => (
-    <Typography {...props} gutterBottom variant="subtitle1" component="h3" />
-  ),
-  h4: (props: any) => (
-    <Typography {...props} gutterBottom variant="caption" component="h4" />
-  ),
-  p: (props: any) => <Typography {...props} paragraph />,
-  a: (props: any) => <Link {...props} rel="noreferrer" target="_blank" />,
-  li: (props: any) => (
-    <Box component="li" sx={{ mt: 1, typography: "body1" }} {...props} />
-  ),
-  img: (props: any) => <Img alt="image" {...props} />,
-  code: Code,
-  pre: CodeBlock,
+export const defaultOverrides = {
+  h1: {
+    component: Typography,
+    props: {
+      variant: "h5",
+      component: "h1",
+    },
+  },
+  h2: {
+    component: Typography,
+    props: {
+      variant: "h5",
+      component: "h2",
+    },
+  },
+  h3: {
+    component: Typography,
+    props: {
+      variant: "h5",
+      component: "h3",
+    },
+  },
+  h4: {
+    component: Typography,
+    props: {
+      variant: "h5",
+      component: "h4",
+    },
+  },
+  p: {
+    component: Typography,
+    props: {
+      paragraph: true,
+    },
+  },
+  a: {
+    component: Link,
+    props: {
+      rel: "noreferrer",
+      target: "_blank",
+    },
+  },
+  img: {
+    component: Img,
+  },
+  pre: {
+    component: CodeBlock,
+  },
+  code: {
+    component: Code,
+  },
+  li: {
+    component: Box,
+    props: {
+      component: "li",
+      sx: { mt: 1, typography: "body1" },
+    },
+  },
 };
-
-const HideIframe = styled.div<{ iframes: boolean }>`
-  iframe {
-    display: ${({ iframes = false }: any) => (iframes ? "inherit" : "none")};
-  }
-`;
 
 export default function Markdown({
   body,
-  iframes = true,
-  components,
+  overrides,
 }: {
-  body: MDXRemoteSerializeResult;
+  body: string;
   iframes?: boolean;
-  components?: MDXComponents;
+  overrides?: MarkdownToJSX.Overrides;
 }) {
   return (
-    <HideIframe iframes={iframes}>
-      <MDXRemote {...body} components={components || defaultComponents} />
-    </HideIframe>
+    <MarkdownCompiler
+      options={{
+        overrides: { ...defaultOverrides, ...overrides },
+      }}
+    >
+      {body}
+    </MarkdownCompiler>
   );
 }

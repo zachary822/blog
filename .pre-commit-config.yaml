@@ -10,11 +10,11 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.0-alpha.6
+    rev: v3.0.3
     hooks:
       - id: prettier
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.37.0
+    rev: v8.50.0
     hooks:
       - id: eslint
         additional_dependencies:
