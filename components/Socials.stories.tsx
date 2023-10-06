@@ -1,25 +1,29 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedIn from "@mui/icons-material/LinkedIn";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import Socials from "./Socials";
 
-export default {
+const meta: Meta<typeof Socials> = {
   component: Socials,
-} as ComponentMeta<typeof Socials>;
+};
 
-const Template: ComponentStory<typeof Socials> = (args) => (
-  <Socials {...args} />
-);
+export default meta;
 
-export const FirstStory = Template.bind({});
+type Story = StoryObj<typeof Socials>;
 
-FirstStory.args = {
-  socials: [
-    { name: "GitHub", icon: GitHubIcon, url: "https://github.com/zachary822" },
-    {
-      name: "LinkedIn",
-      icon: LinkedIn,
-      url: "https://www.linkedin.com/in/zachary-juang/",
-    },
-  ],
+export const FirstStory: Story = {
+  args: {
+    socials: [
+      {
+        name: "GitHub",
+        icon: GitHubIcon,
+        url: "https://github.com/zachary822",
+      },
+      {
+        name: "LinkedIn",
+        icon: LinkedIn,
+        url: "https://www.linkedin.com/in/zachary-juang/",
+      },
+    ],
+  },
 };
