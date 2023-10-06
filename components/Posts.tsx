@@ -1,5 +1,7 @@
 import Grid from "@mui/material/Grid";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "next-i18next";
+import { getPosts } from "../utils/api";
 import { Post } from "../utils/models";
 import FeaturedPost from "./FeaturedPost";
 import Main from "./Main";
@@ -15,8 +17,9 @@ const mainFeaturedPost = {
   imageLabel: "main image description",
 };
 
-function Posts({ posts }: { posts: Post[] }) {
+function Posts() {
   const { t } = useTranslation();
+  const { data: posts = [] } = useQuery(["posts"], () => getPosts());
 
   return (
     <main>
