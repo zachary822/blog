@@ -1,22 +1,16 @@
-import Container from "@mui/material/Container";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Layout from "../components/Layout";
 import Posts from "../components/Posts";
 import { getPosts, getSummary } from "../utils/api";
 
 const Home: NextPage = () => {
   return (
-    <>
-      <Container maxWidth="lg">
-        <Header title="ThoughtBank" />
-        <Posts />
-      </Container>
-      <Footer />
-    </>
+    <Layout>
+      <Posts />
+    </Layout>
   );
 };
 

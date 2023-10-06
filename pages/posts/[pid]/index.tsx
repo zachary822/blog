@@ -1,4 +1,3 @@
-import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import map from "lodash/map";
@@ -8,8 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import Footer from "../../../components/Footer";
-import Header from "../../../components/Header";
+import Layout from "../../../components/Layout";
 import PostBody from "../../../components/Post";
 import Sidebar from "../../../components/Sidebar";
 import { getPost, getPosts, getSummary } from "../../../utils/api";
@@ -33,8 +31,7 @@ const Post = () => {
         <meta property="og:description" content={post?.summary || ""} />
         {post?.image ? <meta property="og:url" content={post.image} /> : null}
       </Head>
-      <Container maxWidth="lg" sx={{ color: "text.primary" }}>
-        <Header title="ThoughtBank" />
+      <Layout>
         <Grid container spacing={5} pt={3} component="main">
           <Grid item xs={12} md={8}>
             {isSuccess && post ? (
@@ -49,8 +46,7 @@ const Post = () => {
           </Grid>
           <Sidebar />
         </Grid>
-      </Container>
-      <Footer />
+      </Layout>
     </>
   );
 };
