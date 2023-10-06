@@ -9,7 +9,21 @@ import "highlight.js/styles/github.css";
 import { ComponentProps, RefObject, useCallback, useMemo, useRef } from "react";
 import { toast } from "react-toastify";
 import MarkdownCompiler, { MarkdownToJSX } from "markdown-to-jsx";
-import hljs from "highlight.js";
+import hljs from "highlight.js/lib/core";
+
+hljs.registerLanguage("python", require("highlight.js/lib/languages/python"));
+hljs.registerLanguage(
+  "python-repl",
+  require("highlight.js/lib/languages/python-repl"),
+);
+hljs.registerLanguage(
+  "typescript",
+  require("highlight.js/lib/languages/typescript"),
+);
+hljs.registerLanguage("shell", require("highlight.js/lib/languages/shell"));
+hljs.registerLanguage("haskell", require("highlight.js/lib/languages/haskell"));
+
+hljs.registerAliases("sh", { languageName: "shell" });
 
 const Copy = styled.div`
   position: absolute;
@@ -63,9 +77,17 @@ const Code = ({
       typeof children === "string"
     ) {
       const language = className.replace(/lang-/, "");
+      let __html;
+
+      try {
+        __html = hljs.highlight(children, { language }).value;
+      } catch (e) {
+        __html = children;
+      }
+
       return {
         dangerouslySetInnerHTML: {
-          __html: hljs.highlight(children, { language }).value,
+          __html,
         },
       };
     }
