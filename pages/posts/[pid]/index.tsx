@@ -10,6 +10,7 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import Layout from "../../../components/Layout";
 import PostBody from "../../../components/Post";
 import Sidebar from "../../../components/Sidebar";
+import SidebarLayout from "../../../components/SidebarLayout";
 import { getPost, getPosts, getSummary } from "../../../utils/api";
 
 const Post = () => {
@@ -31,22 +32,17 @@ const Post = () => {
         <meta property="og:description" content={post?.summary || ""} />
         {post?.image ? <meta property="og:url" content={post.image} /> : null}
       </Head>
-      <Layout>
-        <Grid container spacing={5} pt={3} component="main">
-          <Grid item xs={12} md={8}>
-            {isSuccess && post ? (
-              <PostBody post={post} />
-            ) : (
-              <div>
-                <Typography gutterBottom variant="h6" component="h1">
-                  {t("Not Found")}
-                </Typography>
-              </div>
-            )}
-          </Grid>
-          <Sidebar />
-        </Grid>
-      </Layout>
+      <SidebarLayout>
+        {isSuccess && post ? (
+          <PostBody post={post} />
+        ) : (
+          <div>
+            <Typography gutterBottom variant="h6" component="h1">
+              {t("Not Found")}
+            </Typography>
+          </div>
+        )}
+      </SidebarLayout>
     </>
   );
 };

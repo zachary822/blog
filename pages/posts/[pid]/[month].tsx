@@ -1,15 +1,13 @@
 import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import map from "lodash/map";
 import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import Layout from "../../../components/Layout";
 import Post from "../../../components/Post";
-import Sidebar from "../../../components/Sidebar";
+import SidebarLayout from "../../../components/SidebarLayout";
 import { getPostsByMonth, getSummary } from "../../../utils/api";
 
 const MonthPosts = () => {
@@ -37,20 +35,15 @@ const MonthPosts = () => {
         </title>
         <meta name="description" content="blog post" />
       </Head>
-      <Layout>
-        <Grid container spacing={5} pt={3} component="main">
-          <Grid item xs={12} md={8}>
-            <Typography variant="h4">
-              {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}
-            </Typography>
-            <Divider />
-            {posts.map((post) => (
-              <Post post={post} key={post._id} pt={3} />
-            ))}
-          </Grid>
-          <Sidebar />
-        </Grid>
-      </Layout>
+      <SidebarLayout>
+        <Typography variant="h4">
+          {d.toLocaleString("default", { month: "long" })} {d.getFullYear()}
+        </Typography>
+        <Divider />
+        {posts.map((post) => (
+          <Post post={post} key={post._id} pt={3} />
+        ))}
+      </SidebarLayout>
     </>
   );
 };

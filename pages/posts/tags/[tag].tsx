@@ -6,11 +6,11 @@ import map from "lodash/map";
 import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import Layout from "../../../components/Layout";
 import Post from "../../../components/Post";
 import Sidebar from "../../../components/Sidebar";
+import SidebarLayout from "../../../components/SidebarLayout";
 import { getPostsByTag, getSummary } from "../../../utils/api";
 
 export default function Tags() {
@@ -23,23 +23,18 @@ export default function Tags() {
   );
 
   return (
-    <Layout>
-      <Grid container spacing={5} pt={3} component="main">
-        <Grid item xs={12} md={8}>
-          <Typography variant="h4" gutterBottom>
-            {t("Tag")}:{" "}
-            <Typography fontFamily="monospace" variant="h4" component="span">
-              {tag}
-            </Typography>
-          </Typography>
-          <Divider />
-          {posts.map((post) => (
-            <Post post={post} key={post._id} pt={3} />
-          ))}
-        </Grid>
-        <Sidebar />
-      </Grid>
-    </Layout>
+    <SidebarLayout>
+      <Typography variant="h4" gutterBottom>
+        {t("Tag")}:{" "}
+        <Typography fontFamily="monospace" variant="h4" component="span">
+          {tag}
+        </Typography>
+      </Typography>
+      <Divider />
+      {posts.map((post) => (
+        <Post post={post} key={post._id} pt={3} />
+      ))}
+    </SidebarLayout>
   );
 }
 
