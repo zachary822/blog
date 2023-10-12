@@ -9,10 +9,6 @@ export type BasePost = {
   tags: string[];
 };
 
-export interface RawPost extends BasePost {
-  body: string;
-}
-
 export interface Post extends BasePost {
   body: string;
 }

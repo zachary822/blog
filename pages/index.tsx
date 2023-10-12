@@ -18,7 +18,7 @@ export default Home;
 
 export async function getStaticProps({
   locale = "en",
-}: GetStaticPropsContext<any>) {
+}: GetStaticPropsContext<Record<string, never>>) {
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery(["posts"], () => getPosts()),

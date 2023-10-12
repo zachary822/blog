@@ -1,4 +1,4 @@
-import { Post, RawPost, Summary } from "./models";
+import { Post, Summary } from "./models";
 
 const handleResponse = (res: Response) => {
   if (!res.ok) {

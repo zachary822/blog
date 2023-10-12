@@ -1,24 +1,28 @@
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import { appWithTranslation } from "next-i18next";
-import type { AppProps } from "next/app";
-import Head from "next/head";
-import React, { useState } from "react";
 import {
   Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import mermaid from "mermaid";
+import { appWithTranslation } from "next-i18next";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.scss";
 import createEmotionCache from "../utils/createEmotionCache";
 import theme from "../utils/theme";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+mermaid.initialize({ startOnLoad: false });
 
 const clientSideEmotionCache = createEmotionCache();
 
-interface MyAppProps extends AppProps {
+export interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
@@ -53,6 +57,7 @@ function MyApp({
               theme="colored"
             />
           </Hydrate>
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
     </CacheProvider>

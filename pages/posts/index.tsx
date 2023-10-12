@@ -18,7 +18,9 @@ const Posts = () => {
     data: posts = [],
     isSuccess,
     isError,
-  } = useQuery(["getPosts", q], () => getPosts({ query: q as string }), {
+  } = useQuery({
+    queryKey: ["getPosts", q],
+    queryFn: () => getPosts({ query: q as string }),
     retry: false,
   });
 
@@ -41,7 +43,7 @@ const Posts = () => {
 
 export async function getStaticProps({
   locale = "en",
-}: GetStaticPropsContext<any>) {
+}: GetStaticPropsContext<Record<string, never>>) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(["summary"], getSummary);
 

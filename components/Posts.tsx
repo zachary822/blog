@@ -19,7 +19,10 @@ const mainFeaturedPost = {
 
 function Posts() {
   const { t } = useTranslation();
-  const { data: posts = [] } = useQuery(["posts"], () => getPosts());
+  const { data: posts = [] } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => getPosts(),
+  });
 
   return (
     <main>

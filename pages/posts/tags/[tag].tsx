@@ -1,5 +1,4 @@
 import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import map from "lodash/map";
@@ -7,9 +6,7 @@ import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
-import Layout from "../../../components/Layout";
 import Post from "../../../components/Post";
-import Sidebar from "../../../components/Sidebar";
 import SidebarLayout from "../../../components/SidebarLayout";
 import { getPostsByTag, getSummary } from "../../../utils/api";
 
@@ -18,9 +15,10 @@ export default function Tags() {
     query: { tag },
   } = useRouter();
   const { t } = useTranslation();
-  const { data: posts = [] } = useQuery(["tag", tag], () =>
-    getPostsByTag(tag as string),
-  );
+  const { data: posts = [] } = useQuery({
+    queryKey: ["tag", tag],
+    queryFn: () => getPostsByTag(tag as string),
+  });
 
   return (
     <SidebarLayout>
@@ -48,14 +46,14 @@ export async function getStaticPaths() {
         params: { tag: tag.name },
       };
     }),
-    fallback: "blocking",
+    fallback: true,
   };
 }
 
 export async function getStaticProps({
   locale = "en",
-  params: { tag },
-}: GetStaticPropsContext<any>) {
+  params: { tag } = { tag: "" },
+}: GetStaticPropsContext<{ tag: string }>) {
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery(["summary"], getSummary),

@@ -22,7 +22,10 @@ const socials = [
 ];
 
 export default function Sidebar() {
-  const { data: summary } = useQuery(["summary"], getSummary);
+  const { data: summary } = useQuery({
+    queryKey: ["summary"],
+    queryFn: getSummary,
+  });
   const { t } = useTranslation();
 
   return (

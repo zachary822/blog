@@ -6,7 +6,15 @@ import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import "highlight.js/styles/github.css";
-import { ComponentProps, RefObject, useCallback, useMemo, useRef } from "react";
+import mermaid from "mermaid";
+import {
+  ComponentProps,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import MarkdownCompiler, { MarkdownToJSX } from "markdown-to-jsx";
 import hljs from "highlight.js/lib/core";
@@ -84,25 +92,43 @@ const Code = ({
   className,
   ...props
 }: ComponentProps<typeof Box>) => {
-  const code = useMemo(() => {
+  const [code, setCode] = useState<ComponentProps<typeof Box>>();
+
+  useEffect(() => {
     if (
       className &&
       className.startsWith("lang-") &&
       typeof children === "string"
     ) {
       const language = className.replace(/lang-/, "");
+      if (language === "mermaid") {
+        const type = mermaid.detectType(children);
+        mermaid.render(type, children).then(({ svg }) => {
+          setCode({
+            dangerouslySetInnerHTML: {
+              __html: svg,
+            },
+          });
+        });
+        return;
+      }
       if (!LANGUAGES.includes(language)) {
-        return { children };
+        setCode({ children });
+        return;
       }
       try {
-        return {
+        setCode({
           dangerouslySetInnerHTML: {
             __html: hljs.highlight(children, { language }).value,
           },
-        };
-      } catch (e) {}
+        });
+        return;
+      } catch (e) {
+        /* empty */
+      }
     }
-    return { children };
+    setCode({ children });
+    return;
   }, [className, children]);
 
   return (

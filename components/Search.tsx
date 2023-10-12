@@ -10,13 +10,14 @@ import { getAutocomplete } from "../utils/api";
 const Search = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
-  const { data: options = [], refetch } = useQuery(
-    ["getAutocomplete", inputValue],
-    () => {
+  const { data: options = [], refetch } = useQuery({
+    queryKey: ["getAutocomplete", inputValue],
+    queryFn: () => {
       return getAutocomplete(inputValue);
     },
-    { enabled: false, retry: false }
-  );
+    enabled: false,
+    retry: false,
+  });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedRefetch = useCallback(debounce(refetch, 200), [refetch]);
 
@@ -31,7 +32,7 @@ const Search = () => {
       e.preventDefault();
       router.push(`/posts?q=${encodeURIComponent(inputValue)}`);
     },
-    [router, inputValue]
+    [router, inputValue],
   );
 
   return (

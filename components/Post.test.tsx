@@ -5,7 +5,7 @@ describe("Test Post", () => {
   test.skip("test post", () => {
     const post = {
       _id: "1",
-      body: "body" as any,
+      body: "body",
       title: "title",
       created: new Date().toLocaleString(),
       updated: new Date().toLocaleString(),

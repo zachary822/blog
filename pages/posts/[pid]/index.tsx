@@ -1,15 +1,12 @@
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import map from "lodash/map";
 import { GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import Layout from "../../../components/Layout";
 import PostBody from "../../../components/Post";
-import Sidebar from "../../../components/Sidebar";
 import SidebarLayout from "../../../components/SidebarLayout";
 import { getPost, getPosts, getSummary } from "../../../utils/api";
 
@@ -17,9 +14,10 @@ const Post = () => {
   const {
     query: { pid },
   } = useRouter();
-  const { data: post, isSuccess } = useQuery(["getPost", pid], () =>
-    getPost(pid as string),
-  );
+  const { data: post, isSuccess } = useQuery({
+    queryKey: ["getPost", pid],
+    queryFn: () => getPost(pid as string),
+  });
   const { t } = useTranslation();
 
   return (
@@ -55,14 +53,14 @@ export async function getStaticPaths() {
 
   return {
     paths: map(posts, (post) => ({ params: { pid: post._id } })),
-    fallback: "blocking",
+    fallback: true,
   };
 }
 
 export async function getStaticProps({
   locale = "en",
-  params: { pid },
-}: GetStaticPropsContext<any>) {
+  params: { pid } = { pid: "" },
+}: GetStaticPropsContext<{ pid: string }>) {
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery(["getPost", pid], () => getPost(pid)),

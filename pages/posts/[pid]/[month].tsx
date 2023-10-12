@@ -14,9 +14,10 @@ const MonthPosts = () => {
   const {
     query: { pid: year, month },
   } = useRouter();
-  const { data: posts = [] } = useQuery(["month", year, month], () =>
-    getPostsByMonth(year as string, month as string),
-  );
+  const { data: posts = [] } = useQuery({
+    queryKey: ["month", year, month],
+    queryFn: () => getPostsByMonth(year as string, month as string),
+  });
 
   const d = new Date(
     parseInt(year as string),
@@ -60,14 +61,14 @@ export async function getStaticPaths() {
         params: { pid: s.year.toString(), month: s.month.toString() },
       };
     }),
-    fallback: "blocking",
+    fallback: true,
   };
 }
 
 export async function getStaticProps({
   locale = "en",
-  params: { pid: year, month },
-}: GetStaticPropsContext<any>) {
+  params: { pid: year, month } = { pid: "", month: "" },
+}: GetStaticPropsContext<{ pid: string; month: string }>) {
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery(["summary"], getSummary),

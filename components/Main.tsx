@@ -1,10 +1,11 @@
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Post from "./Post";
+import PostComponent from "./Post";
+import type { Post } from "../utils/models";
 
 interface MainProps {
-  posts: ReadonlyArray<any>;
+  posts: ReadonlyArray<Post>;
   title: string;
 }
 
@@ -18,7 +19,7 @@ export default function Main(props: MainProps) {
       </Typography>
       <Divider />
       {posts.map((post) => (
-        <Post post={post} key={post._id} pt={3} />
+        <PostComponent post={post} key={post._id} pt={3} />
       ))}
     </Grid>
   );

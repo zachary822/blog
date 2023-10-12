@@ -10,6 +10,6 @@ export const roboto = Roboto({
 
 export default createTheme({
   typography: {
-    fontFamily: [roboto.style.fontFamily].join(","),
+    fontFamily: roboto.style.fontFamily,
   },
 });
