@@ -45,7 +45,10 @@ export async function getStaticProps({
   locale = "en",
 }: GetStaticPropsContext<Record<string, never>>) {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["summary"], getSummary);
+  await queryClient.prefetchQuery({
+    queryKey: ["summary"],
+    queryFn: getSummary,
+  });
 
   return {
     props: {

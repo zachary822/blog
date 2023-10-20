@@ -53,7 +53,10 @@ export default MonthPosts;
 
 export async function getStaticPaths() {
   const queryClient = new QueryClient();
-  const summary = await queryClient.fetchQuery(["summary"], getSummary);
+  const summary = await queryClient.fetchQuery({
+    queryKey: ["summary"],
+    queryFn: getSummary,
+  });
 
   return {
     paths: map(summary.monthly, (s) => {
@@ -71,10 +74,11 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ pid: string; month: string }>) {
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(["summary"], getSummary),
-    queryClient.prefetchQuery(["month", year, month], () =>
-      getPostsByMonth(year, month),
-    ),
+    queryClient.prefetchQuery({ queryKey: ["summary"], queryFn: getSummary }),
+    queryClient.prefetchQuery({
+      queryKey: ["month", year, month],
+      queryFn: () => getPostsByMonth(year, month),
+    }),
   ]);
 
   return {

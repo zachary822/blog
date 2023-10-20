@@ -49,7 +49,10 @@ export default Post;
 
 export async function getStaticPaths() {
   const queryClient = new QueryClient();
-  const posts = await queryClient.fetchQuery(["getPosts"], () => getPosts());
+  const posts = await queryClient.fetchQuery({
+    queryKey: ["getPosts"],
+    queryFn: () => getPosts(),
+  });
 
   return {
     paths: map(posts, (post) => ({ params: { pid: post._id } })),
@@ -63,8 +66,11 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ pid: string }>) {
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(["getPost", pid], () => getPost(pid)),
-    queryClient.prefetchQuery(["summary"], getSummary),
+    queryClient.prefetchQuery({
+      queryKey: ["getPost", pid],
+      queryFn: () => getPost(pid),
+    }),
+    queryClient.prefetchQuery({ queryKey: ["summary"], queryFn: getSummary }),
   ]);
 
   return {

@@ -38,7 +38,10 @@ export default function Tags() {
 
 export async function getStaticPaths() {
   const queryClient = new QueryClient();
-  const summary = await queryClient.fetchQuery(["summary"], getSummary);
+  const summary = await queryClient.fetchQuery({
+    queryKey: ["summary"],
+    queryFn: getSummary,
+  });
 
   return {
     paths: map(summary.tags, (tag) => {
@@ -56,8 +59,11 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ tag: string }>) {
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(["summary"], getSummary),
-    queryClient.prefetchQuery(["tag", tag], () => getPostsByTag(tag)),
+    queryClient.prefetchQuery({ queryKey: ["summary"], queryFn: getSummary }),
+    queryClient.prefetchQuery({
+      queryKey: ["tag", tag],
+      queryFn: () => getPostsByTag(tag),
+    }),
   ]);
 
   return {

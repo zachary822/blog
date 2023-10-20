@@ -21,8 +21,11 @@ export async function getStaticProps({
 }: GetStaticPropsContext<Record<string, never>>) {
   const queryClient = new QueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(["posts"], () => getPosts()),
-    queryClient.prefetchQuery(["summary"], getSummary),
+    queryClient.prefetchQuery({
+      queryKey: ["posts"],
+      queryFn: () => getPosts(),
+    }),
+    queryClient.prefetchQuery({ queryKey: ["summary"], queryFn: getSummary }),
   ]);
 
   return {

@@ -2,7 +2,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import {
-  Hydrate,
+  HydrationBoundary,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
@@ -42,7 +42,7 @@ function MyApp({
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
+          <HydrationBoundary state={pageProps.dehydratedState}>
             <Component {...pageProps} />
             <ToastContainer
               position="top-right"
@@ -56,7 +56,7 @@ function MyApp({
               pauseOnHover={false}
               theme="colored"
             />
-          </Hydrate>
+          </HydrationBoundary>
           <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
